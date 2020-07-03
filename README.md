@@ -15,3 +15,6 @@ A bunch -
 1. Publication Reader: Kind of like an RSS reader but for reading best-of archives instead of the latest
 2. Categorised Viewing: Looking for comics, articles, news, cool sites? We got them
 3. User Profiles: Upload your bookmarks, share them across devices, maintain your personal reading lists (read, to-read) - all in a secure and private environment; no login, no data shared with anyone
+
+## Terms and Conditions
+Buzo.dog is shared under a CC-BY-SA-4.0 license. The creators of this site are not liable for any content that you may access through this site. The creators claim no ownership over the content aggregated, displayed and accessed through this site. By using this site you are implicitly agreeing to these terms and conditions.
