@@ -20,6 +20,33 @@ except:
     import scrape
     import curate
 
+# dumps = ['./scrapers/xkcd_dump.json', './scrapers/aeon_dump.json', 
+#         './scrapers/bp_dump.json', './scrapers/bp_dump1.json', 
+#         './scrapers/margins_dump.json', './scrapers/links_on_margins_dump.json',
+#         './scrapers/threewordphrase_dump.json']
+
+dumps = ['./scrapers/stratechery_dump.json']
+
+### Create a backup
+def backup():
+    mycol = mydb['core']
+
+    # create backup
+    mycol.aggregate([
+        {"$match": {}}, 
+        {"$out": "backup"},
+    ])
+
+### Restore backup
+def restore():
+    mycol = mydb['backup']
+
+    # create backup
+    mycol.aggregate([
+        {"$match": {}}, 
+        {"$out": "core"},
+    ])
+
 ### CREATE DATABASE
 def create():
     try:
@@ -27,52 +54,41 @@ def create():
     except:
         counter = 0
 
-    links = []
-    
-    # # stray sites
-    # links.append({"Random": sources.sites})
-
-    # # regular scraps - pinboard
-    # links.append({"Pinboard": scrape.pinboard_load()})
-
-    # # subreddits
-    # temp = []
-    # for i in sources.subreddits:
-    #     temp.extend(scrape.reddit_subreddit_url_extracter(i))
-    # links.append({"Reddit Subs": temp})
-    
-    # reddit threads
-    temp = []
-    for i in sources.reddit_threads:
-        temp.extend(scrape.reddit_url_extracter(i))
-    links.append({"Reddit threads": temp})
-
-    ## dd is the dict inside links
-    for dd in links:
-        key = list(dd.keys())[0]
-        print(key)
-        for l in dd[key]:
+    import ast
+    for filename in dumps:
+        with open(filename) as f:
+            text = f.read()
+            links = ast.literal_eval(text)
+        
+        print(filename)
+        ## dd is the dict inside links
+        for dd in links:
             counter += 1
 
             ## get metadata
-            metadata = curate.curate(l)
-            if metadata == 'remove':
-                continue
+            # metadata = curate.curate(l)
+            # if metadata == 'remove':
+            #     continue
+
             collection = {
                         "_id":counter,
-                        'link': l,
-                        'source': key,
+                        'link': dd['url'],
+                        'source': dd['site'],
+                        'language': dd['language'],
+                        'tags': dd['tags'],
+                        'description': dd['description'],
+                        'image': dd['image'],
+                        'title': dd['title'],
                         'likes': 0,
                         'dislikes': 0
                         }
-            collection = {**collection, **metadata}
             mycol.insert_one(collection)
 
             if counter % 50 == 0:
                 print(counter, " links added.")
 
 ### READ DATABASE
-def read(count=1, **kwargs):
+def read(count=1, give_sources=0, **kwargs):
     args = []
     for i in kwargs.keys():
         args.append({i: kwargs[i]})
@@ -91,6 +107,8 @@ def read(count=1, **kwargs):
 
     return result
 
+### UPDATE DATABASE
+
 if __name__ == '__main__':
     ############################
     # Command line utility
@@ -100,6 +118,14 @@ if __name__ == '__main__':
 
     # Call the create function
     parser.add_argument("-c", "--create", help="load the DB with latest links",
+                        action="store_true")
+
+    # Call the create function
+    parser.add_argument("-b", "--backup", help="backup the DB",
+                        action="store_true")
+
+    # Call the create function
+    parser.add_argument("-r", "--restore", help="restore the backup",
                         action="store_true")
 
 
@@ -121,3 +147,7 @@ if __name__ == '__main__':
 
     if args.create:
         create()
+    if args.backup:
+        backup()
+    if args.restore:
+        restore()

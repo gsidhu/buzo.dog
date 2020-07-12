@@ -10,6 +10,8 @@
             </div>
         </div>
         <Links v-bind:links="links" :title="title" />
+        <button class='btn btn-light mr-2' v-on:click="scrollUp()">Go Up</button>
+        <button class='btn btn-light' v-on:click="fetchMore(title)">More</button>
     </div>
 </template>
 
@@ -17,7 +19,7 @@
 import Links from '../components/Links';
 
 import axios from 'axios';
-// import $ from 'jquery';
+import $ from 'jquery';
 
 // eslint-disable-line no-unused-vars
 export default {
@@ -53,6 +55,11 @@ export default {
         axios.get(api_link)
             .then( response => this.links = response.data)
             .catch( err => console.log(err));
+    },
+    scrollUp() {
+      $([document.documentElement, document.body]).animate({
+              scrollTop: $("#links").offset().top
+        }, 1000);
     }
   }
 }

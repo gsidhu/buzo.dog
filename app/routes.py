@@ -34,3 +34,12 @@ def api_filter():
         result = crud.read(count=count, source=source)
 
     return jsonify(result)
+
+@app.route('/api/v1/resources/sources', methods=['GET'])
+def api_sources():
+    if request.method != 'GET':
+        return make_response('Malformed request', 400)
+
+    result = crud.read(give_sources=1)
+
+    return jsonify(result)

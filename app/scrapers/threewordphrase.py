@@ -1,4 +1,4 @@
-# this file scrapes the entire xkcd archive
+# this file scrapes the entire The Word Phrase archive
 # and adds these properties to the links –
 # featured-image:  wp-post-image img
 # title: sailthru.title
@@ -14,25 +14,18 @@ import metadata_parser
 
 archive_links = []
 def pull_archive():
-    root_link = "https://xkcd.com"
+    root_link = "http://threewordphrase.com/"
     count = 0
-    r = requests.get(root_link + "/archive/")
+    r = requests.get(root_link + "archive.htm")
     soup = BeautifulSoup(r.content, 'html.parser')
-    links = soup.find_all('div', id="middleContainer")
+    links = soup.find_all('span', class_="links")
 
     for c in links[0].find_all('a'):
-        new_values = {'language': 'EN', 'site': 'xkcd', 
+        new_values = {'language': 'EN', 'site': 'Three Word Phrase', 
                     'tags': 'Comic', 'description': '',
-                    'image': 'https://xkcd.com/s/0b7742.png'}
+                    'image': 'http://threewordphrase.com/header.gif'}
 
         new_values['title'] = c.contents[0]
-        if len(c.contents) > 1:
-            new_values['title'] = ''
-            for j in c.contents:
-                try:
-                    new_values['title'] += j
-                except:
-                    new_values['title'] += j.contents[0]
         new_values['url'] = root_link + c['href']
         count += 1
         new_values['serial'] = str(count)
@@ -40,5 +33,5 @@ def pull_archive():
     return len(archive_links)
 pull_archive()
 import json
-with open('xkcd.json', 'w+') as f:
+with open('threewordphrase_dump.json', 'w+') as f:
     json.dump(archive_links, f)
