@@ -8,6 +8,7 @@ bs4==0.0.1
 certifi==2020.4.5.1
 chardet==3.0.4
 click==7.1.2
+ddg3==0.6.6
 decorator==4.4.2
 defusedxml==0.6.0
 entrypoints==0.3
@@ -31,6 +32,7 @@ jupyter-core==4.6.3
 lazy-object-proxy==1.4.3
 MarkupSafe==1.1.1
 mccabe==0.6.1
+metadata-parser==0.10.0
 mistune==0.8.4
 nbconvert==5.6.1
 nbformat==5.0.6
@@ -40,6 +42,8 @@ pandocfilters==1.4.2
 parso==0.7.0
 pexpect==4.8.0
 pickleshare==0.7.5
+praw==7.0.0
+prawcore==1.4.0
 prometheus-client==0.8.0
 prompt-toolkit==3.0.5
 ptyprocess==0.6.0
@@ -53,6 +57,8 @@ pyzmq==19.0.1
 qtconsole==4.7.4
 QtPy==1.9.0
 requests==2.23.0
+requests-toolbelt==0.9.1
+selenium==3.141.0
 Send2Trash==1.5.0
 six==1.15.0
 soupsieve==2.0.1
@@ -62,10 +68,13 @@ toml==0.10.1
 tornado==6.0.4
 traitlets==4.3.3
 typed-ast==1.4.1
+update-checker==0.17
 urllib3==1.25.9
 wcwidth==0.1.9
 webencodings==0.5.1
+websocket-client==0.57.0
 Werkzeug==1.0.1
 widgetsnbextension==3.5.1
+wikipedia==1.4.0
 wrapt==1.12.1
 zipp==3.1.0
