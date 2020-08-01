@@ -24,7 +24,9 @@ export default {
       {"id": 5, "title": 'xkcd'},
       {"id": 6, "title": "Three Word Phrase"},
       {"id": 7, "title": "Margins"},
-      {"id": 8, "title": "Statechery"}]
+      {"id": 8, "title": "Stratechery"},
+      {"id": 9, "title": "Mark Manson"},
+      {"id": 10, "title": "fs blog"}]
     }
   },
   created() {

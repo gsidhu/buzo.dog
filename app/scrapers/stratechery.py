@@ -1,4 +1,4 @@
-# this file scrapes the entire Aeon.co archive of essays
+# this file scrapes the entire Stratechery archive of essays
 # and adds these properties to the links –
 # featured-image: <figure style url bg image>
 # title: sailthru.title

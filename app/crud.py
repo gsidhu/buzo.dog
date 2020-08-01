@@ -23,9 +23,15 @@ except:
 # dumps = ['./scrapers/xkcd_dump.json', './scrapers/aeon_dump.json', 
 #         './scrapers/bp_dump.json', './scrapers/bp_dump1.json', 
 #         './scrapers/margins_dump.json', './scrapers/links_on_margins_dump.json',
-#         './scrapers/threewordphrase_dump.json']
+#         './scrapers/threewordphrase_dump.json', './scrapers/stratechery_dump.json', './scrapers/markmanson_dump.json']
 
-dumps = ['./scrapers/stratechery_dump.json']
+dumps = ['./scrapers/fsblog_culture_dump.json',
+'./scrapers/fsblog_decision-making_dump.json',
+'./scrapers/fsblog_mental-models_dump.json',
+'./scrapers/fsblog_science_dump.json',
+'./scrapers/fsblog_thinking_dump.json',
+'./scrapers/fsblog_uncategorized_dump.json',
+'./scrapers/fsblog_writing_dump.json']
 
 ### Create a backup
 def backup():

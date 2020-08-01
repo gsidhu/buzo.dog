@@ -49,6 +49,7 @@ export default {
         if (source === 'All') {
             api_link = 'https://api.buzo.dog/api/v1/resources/links?count=10';
         } else {
+            if (source === 'Stratechery') { source = 'Statechery' }
             api_link = 'https://api.buzo.dog/api/v1/resources/links?count=10' + '&source=' + encodeURI(source);
         }
         console.log(api_link)
