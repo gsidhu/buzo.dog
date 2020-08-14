@@ -1,5 +1,5 @@
 <template>
-    <div class='col-sm-9 mx-auto my-4'>
+    <div class='col-sm-8 mx-auto my-4'>
         <h3 id='links'>Publications</h3>
         <div class="row mx-auto justify-content-center">
             <div v-bind:key="pub.id" v-for="pub in pubs" class="links-div mb-2 mx-1 shadow-sm">
@@ -52,14 +52,14 @@ export default {
             if (source === 'Stratechery') { source = 'Statechery' }
             api_link = 'https://api.buzo.dog/api/v1/resources/links?count=10' + '&source=' + encodeURI(source);
         }
-        console.log(api_link)
+        // console.log(api_link)
         axios.get(api_link)
             .then( response => this.links = response.data)
             .catch( err => console.log(err));
     },
     scrollUp() {
       $([document.documentElement, document.body]).animate({
-              scrollTop: $("#links").offset().top
+              scrollTop: $("#app").offset().top
         }, 1000);
     }
   }

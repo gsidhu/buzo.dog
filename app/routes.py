@@ -26,12 +26,16 @@ def api_filter():
 
     query_parameters = request.args
     source = query_parameters.get('source')
-    count = int(query_parameters.get('count'))
+    count = query_parameters.get('count')
+    iD = query_parameters.get('_id')
 
     if source is None:
-        result = crud.read(count=count)
+        if iD is None:
+            result = crud.read(count=int(count))
+        else:
+            result = crud.read(id=iD)
     else:
-        result = crud.read(count=count, source=source)
+        result = crud.read(count=int(count), source=source)
 
     return jsonify(result)
 

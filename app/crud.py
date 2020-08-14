@@ -2,7 +2,7 @@
 import pymongo
 myclient = pymongo.MongoClient('127.0.0.1', 27017)
 mydb = myclient['buzodog']
-mycol = mydb['core']
+mycol = mydb['cache']
 
 import argparse
 import logging as log
@@ -99,15 +99,18 @@ def read(count=1, give_sources=0, **kwargs):
     for i in kwargs.keys():
         args.append({i: kwargs[i]})
     
-    if len(args) > 0:
-        pipeline = [
-                {"$match": {"$and": args}},
-                {"$sample": {"size": count}}
-            ]
+    if 'id' in kwargs.keys():
+        pipeline = [{"$match": {"_id": kwargs['id']}}]
     else:
-        pipeline = [ 
-                {"$sample": {"size": count}}
-            ]
+        if len(args) > 0:
+            pipeline = [
+                    {"$match": {"$and": args}},
+                    {"$sample": {"size": count}}
+                ]
+        else:
+            pipeline = [ 
+                    {"$sample": {"size": count}}
+                ]
 
     result = list(mycol.aggregate(pipeline))
 
