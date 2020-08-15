@@ -15,7 +15,7 @@ export default {
     },
     data() {
         return {
-            msg: "A no nonsense internet explorer."
+            msg: "A no nonsense library."
         }
     }
 }

@@ -101,6 +101,8 @@ def read(count=1, give_sources=0, **kwargs):
     
     if 'id' in kwargs.keys():
         pipeline = [{"$match": {"_id": kwargs['id']}}]
+    elif 'link' in kwargs.keys():
+        pipeline = [{"$match": {"link": kwargs['link']}}]
     else:
         if len(args) > 0:
             pipeline = [

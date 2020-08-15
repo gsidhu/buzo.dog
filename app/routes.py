@@ -28,10 +28,14 @@ def api_filter():
     source = query_parameters.get('source')
     count = query_parameters.get('count')
     iD = query_parameters.get('_id')
+    link = query_parameters.get('link')
 
     if source is None:
         if iD is None:
-            result = crud.read(count=int(count))
+            if link is None:
+                result = crud.read(count=int(count))
+            else:
+                result = crud.read(link=str(link))
         else:
             result = crud.read(id=iD)
     else:

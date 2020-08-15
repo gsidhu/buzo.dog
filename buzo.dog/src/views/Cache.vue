@@ -10,7 +10,7 @@
     <div class='col-sm-10 mx-auto my-4'>
 
       <button class='btn btn-light' v-on:click="removeImages()">Text Only</button>
-      <!-- <button class='btn btn-light' v-on:click="fetchMore(title)">More</button> -->
+      <button class='btn btn-light' v-on:click="getCachedLinks()">Fancy</button>
       
       
       <div v-html="link[0].html" id='raw-text'>
@@ -36,7 +36,10 @@ export default {
   data() {
     return {
       id: this.$route.query.id,
-      link: {}
+      link: {},
+      cachedLinks: [],
+      cachedIndices: [],
+      promises: []
     }
   },
   created() {
@@ -56,6 +59,42 @@ export default {
       for (var i=0; i < imageNodes.length; i++) {
         imageNodes[i+1].remove()
       }
+    },
+    getCachedLinks() {
+      var all_href = $('a');
+      var currentHost = (new URL(this.link[0].link)).hostname;
+
+      for (var i=0; i < all_href.length; i++) {
+        let tempLink = all_href[i].href
+        if (tempLink.indexOf('?') > 0) {
+          tempLink = tempLink.slice(0,tempLink.indexOf('?'))
+        }
+        var newHost = (new URL(tempLink)).hostname;
+        if (currentHost === newHost) {
+          tempLink = 'https://api.buzo.dog/api/v1/resources/links?link=' + encodeURI(tempLink);
+          this.cachedLinks.push(tempLink)
+          this.cachedIndices.push(i)
+        }
+      }
+      
+      this.cachedLinks.forEach(myURL => {
+        this.promises.push(axios.get(myURL));
+      });
+
+      let self = this
+
+      Promise.all(this.promises).then(function (results) {
+        results.forEach(function (response, i) {
+          if (response.data.length > 0) {
+            const tempID = response.data[0]._id;
+            // console.log(tempID, i)
+            // console.log(self.cachedIndices[i])
+            if(tempID.length > 0) {
+              all_href[self.cachedIndices[i]].outerHTML = all_href[self.cachedIndices[i]].outerHTML + " (<a href=/#/cache?id=" + tempID + ">cached</a>)";
+            }
+          }
+        });
+      });
     }
   }
 }
@@ -82,7 +121,7 @@ export default {
 }
 #meta-box a {
   text-decoration: none;
-  border-bottom: 1px black solid;
+  /* border-bottom: 1px black solid; */
   color: black;
 }
 #raw-text blockquote {
