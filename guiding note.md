@@ -1,3 +1,8 @@
+// Fixing mongo
+// sudo lsof -iTCP -sTCP:LISTEN -n -P
+// sudo kill <mongo_command_pid>
+// sudo service mongod start
+
 // guiding note 
 
 **Backend:** Flask with MongoDB 
@@ -52,4 +57,21 @@ db structure
 - True random vs preferred random
     - user can like/dislike sites
     - this preference could be for author/site, topic, content type (video/article/app), site load time
-    - 
+
+
+---------------------------------------------------------------------------
+
+# Seminar 
+* buzotext has all the text - GOOD 
+* images need to be added at the right place 
+* convert to markdown
+  * first paragraph is title / h2 DONE
+  * second is author / h4 DONE
+  * headings are h3 DONE
+  * footnotes: DONE
+    * sup > [^1]
+    * footnote number > [^1]:
+  * table > | __ |
+  * img > {{< img class="center" data-src="a['href']" title="post title" alt="post title in issue name (#issue num, issue year)" >}}
+  * links > []()
+  * li > * 

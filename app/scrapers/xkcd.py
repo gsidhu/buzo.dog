@@ -25,14 +25,14 @@ def pull_archive():
                     'tags': 'Comic', 'description': '',
                     'image': 'https://xkcd.com/s/0b7742.png'}
 
-        new_values['title'] = c.contents[0]
-        if len(c.contents) > 1:
-            new_values['title'] = ''
-            for j in c.contents:
-                try:
-                    new_values['title'] += j
-                except:
-                    new_values['title'] += j.contents[0]
+        new_values['title'] = c.get_text()
+        # if len(c.contents) > 1:
+        #     new_values['title'] = ''
+        #     for j in c.contents:
+        #         try:
+        #             new_values['title'] += j
+        #         except:
+        #             new_values['title'] += j.contents[0]
         new_values['url'] = root_link + c['href']
         count += 1
         new_values['serial'] = str(count)

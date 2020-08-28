@@ -27,14 +27,14 @@ def pull_archive():
 
         inner_count = 0
         for link in soup.find_all('h1', class_="entry-title"):
-            new_values = {'language': 'EN', 'site': 'Statechery', 'image': 'https://stratechery.com/wp-content/themes/stratechery-theme/images/mobile-logo-600-82.png',
+            new_values = {'language': 'EN', 'site': 'Stratechery', 'image': 'https://stratechery.com/wp-content/themes/stratechery-theme/images/mobile-logo-600-82.png',
             'tags': 'Tech, Business'}
-            new_values['title'] = str(link.find('a').contents[0])
+            new_values['title'] = str(link.find('a').get_text())
             new_values['url'] = str(link.find('a')['href'])
 
             des_tag = soup.find_all('div', class_="entry-content")
             
-            new_values['description'] = str(des_tag[inner_count].find('p').contents[0])
+            new_values['description'] = str(des_tag[inner_count].find('p').get_text())
 
             inner_count += 1
             count += 1

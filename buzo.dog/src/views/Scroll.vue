@@ -18,15 +18,18 @@ export default {
   data() {
     return {
       pubs: [{"id": 1, "title": 'All'},
-      {"id": 2, "title": 'Pinboard'},
+      // {"id": 2, "title": 'Pinboard'},
       {"id": 3, "title": 'Brain Pickings'},
       {"id": 4, "title": 'Aeon'},
-      {"id": 5, "title": 'xkcd'},
-      {"id": 6, "title": "Three Word Phrase"},
+      // {"id": 5, "title": 'xkcd'},
+      // {"id": 6, "title": "Three Word Phrase"},
       {"id": 7, "title": "Margins"},
       {"id": 8, "title": "Stratechery"},
       {"id": 9, "title": "Mark Manson"},
-      {"id": 10, "title": "fs blog"}]
+      {"id": 10, "title": "fs blog"},
+      {"id": 11, "title": "Alex Danco's Newsletter"},
+      {"id": 12, "title": "Drew Devault's Blog"},
+      {"id": 13, "title": "Seminar"}]
     }
   },
   created() {

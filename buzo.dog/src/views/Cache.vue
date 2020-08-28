@@ -7,16 +7,26 @@
       <p>Tags: {{link[0].tags}}</p>
       <p v-if='link[0].pubdate != null'>Published on: {{link[0].pubdate}}</p>
     </div>
-    <div class='col-sm-10 mx-auto my-4'>
 
-      <button class='btn btn-light' v-on:click="removeImages()">Text Only</button>
-      <button class='btn btn-light' v-on:click="getCachedLinks()">Fancy</button>
+    <div class='col-sm-10 mx-auto my-4'>
+      <button class='btn btn-light mr-2' v-on:click="toggleView()">Toggle Text View</button>
+      <button class='btn btn-light' v-on:click="getCachedLinks()">Show Internal Links</button>
       
-      
-      <div v-html="link[0].html" id='raw-text'>
+      <!-- <div v-html="link[0].html" class='raw d-none' id='raw-html'>
+      </div> -->
+
+      <!-- <div v-html="link[0].rawhtml" class='raw' id='raw-html'>
+      </div> -->
+
+      <!-- <div class='raw d-none' id='raw-text'>
+        {{link[0].text}}
+      </div> -->
+
+      <div class='raw' id='raw-buzotext'>
+        {{link[0].buzotext}}
       </div>
 
-      <button class='btn btn-light mr-2' v-on:click="scrollUp()">Go Up</button>
+      <button class='btn btn-light' v-on:click="scrollUp()">Go Up</button>
     </div>
   </div>
 </template>
@@ -60,6 +70,10 @@ export default {
         imageNodes[i+1].remove()
       }
     },
+    toggleView() {
+      $('#raw-text').toggleClass('d-none');
+      $('#raw-buzotext').toggleClass('d-none');
+    },
     getCachedLinks() {
       var all_href = $('a');
       var currentHost = (new URL(this.link[0].link)).hostname;
@@ -87,8 +101,6 @@ export default {
         results.forEach(function (response, i) {
           if (response.data.length > 0) {
             const tempID = response.data[0]._id;
-            // console.log(tempID, i)
-            // console.log(self.cachedIndices[i])
             if(tempID.length > 0) {
               all_href[self.cachedIndices[i]].outerHTML = all_href[self.cachedIndices[i]].outerHTML + " (<a href=/#/cache?id=" + tempID + ">cached</a>)";
             }
@@ -102,10 +114,10 @@ export default {
 </script>
 
 <style>
-#raw-text {
+.raw {
   text-align: left;
 }
-#raw-text img {
+.raw img {
   width: auto;
   height: 30vw;
   object-fit: cover;
@@ -124,11 +136,15 @@ export default {
   /* border-bottom: 1px black solid; */
   color: black;
 }
-#raw-text blockquote {
+.raw blockquote {
   padding-left: 10px;
   border-left: 5px #ddd solid;
 }
-#raw-text blockquote > p {
+.raw blockquote > p {
   margin: 0 2rem 1rem 0;
+}
+
+#raw-text, #raw-buzotext {
+  white-space: pre-line;
 }
 </style>

@@ -8,7 +8,7 @@
 import pymongo
 myclient = pymongo.MongoClient('127.0.0.1', 27017)
 mydb = myclient['buzodog']
-mycol = mydb['cached']
+mycol = mydb['seminar']
 
 import argparse
 import logging as log
@@ -20,10 +20,14 @@ import requests
 from bs4 import BeautifulSoup
 from pprint import pprint as pp 
 
-try:
-    from . import helper
-except:
-    import helper
+# try:
+#     from . import sources
+#     from . import scrape
+#     from . import curate
+# except:
+#     import sources
+#     import scrape
+#     import curate
 
 # comics = ['./scrapers/xkcd_dump.json',
 #         './scrapers/threewordphrase_dump.json']
@@ -45,8 +49,8 @@ except:
 #         './scrapers/drewdevault_dump.json',
 #         './scrapers/alexdanco_dump.json']
 
-# dumps = ['./scrapers/seminar_dump.json']
-dumps = ['./scrapers/test_dump.json']
+dumps = ['./scrapers/seminar_dump.json']
+# dumps = ['/Users/thatgurjot/Git Repos/buzo.dog/app/scrapers/seminar_dump.json']
 
 ### Create a backup
 def backup():
@@ -73,11 +77,7 @@ def cache_art(url):
             'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:77.0) Gecko/20100101 Firefox/77.0",
             'From': 'buzo@buzo.dog'
         }
-    try:
-        r = requests.get(url, headers=headers)
-    except Exception as e:
-        print(repr(e))
-        print("request failed")
+    r = requests.get(url, headers=headers)
 
     from newspaper import Config
     from newspaper import Article
@@ -95,15 +95,91 @@ def cache_art(url):
         'pubdate': article.publish_date,
         'text': article.text,
         'image': article.top_image,
-        'rawhtml': str(r.content)
-        # 'buzotext': scrape(r.content, 'html5lib')
+        'rawhtml': str(r.content),
+        'buzotext': scrape(r.content, 'html5lib')
     }
-    try:
-        struct['buzotext'] = helper.scrape(str(r.content), 'html5lib', url)
-    except Exception as e:
-        print(repr(e))
-        print("scraping failed")
     return struct
+
+def scrape(html, parser):
+    soup = BeautifulSoup(html, parser)
+    p = soup.find_all(['h1','h2','h3','h4','h5','h6','p'])
+    endings = [' '.join(p[i].get_text().split()[-3:]) for i in range(len(p))]
+
+    value = []
+    for k in range(len(p)):
+        temp = p[k].get_text().replace('\\r\\n', '')
+        temp = ' '.join(temp.split())
+        temp = temp.strip()
+        value.append(temp)
+
+    text = ''
+    endices = []
+    for k in range(len(value)):
+        check = ' '.join(value[k].split()[-3:])
+        if check in endings:
+            if len(endices) == 0:
+                text = ' '.join(value[:k+1])
+            else:
+                text = '\n'.join([text, ' '.join(value[endices[-1]+1:k+1])])
+            endices.append(k)
+    
+    text = '\n'.join([text, ' '.join(value[endices[-1]+1:])])
+
+    # Cleaning up
+    for trash in ['donating = loving', 'Share\nFacebook', 'Like this:\nLike']:
+        if trash in text:
+            text = text[:text.find(trash)]
+
+    text = tabulate(soup, text)
+
+    return text
+
+def tabulate(soup, text):
+    # turns the tables in the text into html tables
+    tables = soup.find_all('table')
+    if len(tables) == 0:
+        return text
+    lines = text.split('\n')
+    for tb in tables:
+        rows = tb.find_all('tr')
+        ncols = [len(tr.find_all('td')) for tr in rows]
+        htable = '''<table class='table table-bordered'><tbody>'''
+        for n in range(len(rows)):
+            htable += "<tr>"
+            for c in range(ncols[n]):
+                if ncols[n] == 1:
+                    htable += "<td colspan=" + str(max(ncols)) + "'>"
+                else:
+                    htable += '<td>'
+                htable += ' '.join(rows[n].find_all('td')[c].get_text().replace('\n', '').split())
+                htable += '</td>'
+                if n == 0:
+                    first = ' '.join(rows[n].find_all('td')[c].get_text().replace('\n', '').split())
+                if n == (len(rows)-1):
+                    last = ' '.join(rows[n].find_all('td')[c].get_text().replace('\n', '').split())
+            htable += "</tr>"
+        htable += '''</tbody></table>'''
+    
+        try:
+            findex = lines.index(first)
+        except ValueError:
+            for j in range(1,len(first.split())+1):
+                if ' '.join(first.split()[:j]) in lines:
+                    findex = lines.index(' '.join(first.split()[:j]))
+                    break
+        
+        try:
+            lindex = lines.index(last)
+        except ValueError:
+            for j in range(1,len(last.split())+1):
+                if ' '.join(last.split()[:j]) in lines:
+                    lindex = lines.index(' '.join(last.split()[:j]))
+                    break
+        
+        lines = lines[:findex] + [htable] + lines[lindex+1:]
+    
+    text = '\n'.join(lines)
+    return text
 
 ### CREATE DATABASE
 def create_cache():
@@ -142,14 +218,18 @@ def create_cache():
                         'description': dd['description'],
                         'logo': dd['image'],
                         'title': dd['title'],
+                        'author': dd['author'],
+                        'year': dd['year'],
+                        'issue_title': dd['issue_title'],
+                        'issue_num': dd['issue_num'],
+                        'image': dd['image'],
+                        'image_credits': dd['image_credits'],
                         'likes': 0,
                         'dislikes': 0,
                         'html': struct['html'],
                         'rawhtml': struct['rawhtml'],
-                        'author': struct['author'],
                         'pubdate': struct['pubdate'],
                         'text': struct['text'],
-                        'image': struct['image'],
                         'buzotext': struct['buzotext']
                         }
             # set first paragraph of text as description
@@ -162,38 +242,12 @@ def create_cache():
                     pass
 
             if collection['author'] == []:
-                try:
-                    collection['author'] = dd['author']
-                except:
-                    collection['author'] = dd['site']
+                collection['author'] = dd['author']
             
             mycol.insert_one(collection)
-            print("%s cached" % dd['url'])
             if counter % 50 == 0:
                 print("%s links cached" % counter)
         print("Total %s links cached" % len(links))
-
-### READ DATABASE
-def read(count=1, give_sources=0, **kwargs):
-    args = []
-    for i in kwargs.keys():
-        args.append({i: kwargs[i]})
-    
-    if len(args) > 0:
-        pipeline = [
-                {"$match": {"$and": args}},
-                {"$sample": {"size": count}}
-            ]
-    else:
-        pipeline = [ 
-                {"$sample": {"size": count}}
-            ]
-
-    result = list(mycol.aggregate(pipeline))
-
-    return result
-
-### UPDATE DATABASE
 
 if __name__ == '__main__':
     ############################

@@ -2,7 +2,7 @@
 import pymongo
 myclient = pymongo.MongoClient('127.0.0.1', 27017)
 mydb = myclient['buzodog']
-mycol = mydb['cache']
+mycol = mydb['core']
 
 import argparse
 import logging as log
@@ -23,15 +23,17 @@ except:
 # dumps = ['./scrapers/xkcd_dump.json', './scrapers/aeon_dump.json', 
 #         './scrapers/bp_dump.json', './scrapers/bp_dump1.json', 
 #         './scrapers/margins_dump.json', './scrapers/links_on_margins_dump.json',
-#         './scrapers/threewordphrase_dump.json', './scrapers/stratechery_dump.json', './scrapers/markmanson_dump.json']
+#         './scrapers/threewordphrase_dump.json', './scrapers/stratechery_dump.json', 
+#         './scrapers/markmanson_dump.json', './scrapers/fsblog_culture_dump.json',
+#         './scrapers/fsblog_decision-making_dump.json',
+#         './scrapers/fsblog_mental-models_dump.json',
+#         './scrapers/fsblog_science_dump.json',
+#         './scrapers/fsblog_thinking_dump.json',
+#         './scrapers/fsblog_uncategorized_dump.json',
+#         './scrapers/fsblog_writing_dump.json']
 
-dumps = ['./scrapers/fsblog_culture_dump.json',
-'./scrapers/fsblog_decision-making_dump.json',
-'./scrapers/fsblog_mental-models_dump.json',
-'./scrapers/fsblog_science_dump.json',
-'./scrapers/fsblog_thinking_dump.json',
-'./scrapers/fsblog_uncategorized_dump.json',
-'./scrapers/fsblog_writing_dump.json']
+dumps = ['./scrapers/drewdevault_dump.json',
+        './scrapers/alexdanco_dump.json']
 
 ### Create a backup
 def backup():
@@ -56,7 +58,7 @@ def restore():
 ### CREATE DATABASE
 def create():
     try:
-        counter = list(mycol.find().sort("_id",-1))[0]['_id']
+        counter = list(mycol.find({}, {"link": 1}).limit(1).sort([('$natural', -1 )]))[0]['_id']
     except:
         counter = 0
 
@@ -99,6 +101,9 @@ def read(count=1, give_sources=0, **kwargs):
     for i in kwargs.keys():
         args.append({i: kwargs[i]})
     
+    if 'db' in kwargs.keys():
+        mycol = mydb[kwargs['db']]
+
     if 'id' in kwargs.keys():
         pipeline = [{"$match": {"_id": kwargs['id']}}]
     elif 'link' in kwargs.keys():

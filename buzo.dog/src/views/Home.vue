@@ -27,6 +27,7 @@
 
 <script>
 import axios from 'axios';
+// axios.defaults.headers.common['header1'] = 'buzo.dog'
 
 export default {
     name: "Home",
