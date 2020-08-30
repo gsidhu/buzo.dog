@@ -96,7 +96,6 @@ def cache_art(url):
         'text': article.text,
         'image': article.top_image,
         'rawhtml': str(r.content)
-        # 'buzotext': scrape(r.content, 'html5lib')
     }
     try:
         struct['buzotext'] = helper.scrape(str(r.content), 'html5lib', url)

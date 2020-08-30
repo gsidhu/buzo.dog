@@ -69,9 +69,21 @@ db structure
   * second is author / h4 DONE
   * headings are h3 DONE
   * footnotes: DONE
-    * sup > [^1]
-    * footnote number > [^1]:
+    * sup > [^1] DONE
+    * footnote number > [^1]: DONE
   * table > | __ |
   * img > {{< img class="center" data-src="a['href']" title="post title" alt="post title in issue name (#issue num, issue year)" >}}
-  * links > []()
-  * li > * 
+  * links > []() DONE
+  * li > * DONE (won't work if non-unicode characters used)
+  * blockquote > > DONE (won't work for nested blockquotes)
+
+
+headers = {
+            'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:77.0) Gecko/20100101 Firefox/77.0",
+            'From': 'buzo@buzo.dog'
+        }
+url = 'https://www.brainpickings.org/2013/03/04/amanda-palmer-on-the-art-of-asking-ted/'
+r = requests.get(url, headers=headers)
+t,v,s = scrape(r.content,'html5lib',url)
+with open('./sas.txt','w+') as f:
+    f.write(t)
