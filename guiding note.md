@@ -67,15 +67,17 @@ db structure
 * convert to markdown
   * first paragraph is title / h2 DONE
   * second is author / h4 DONE
-  * headings are h3 DONE
+  * headings are h3 or h4 DONE
   * footnotes: DONE
-    * sup > [^1] DONE
-    * footnote number > [^1]: DONE
+    * sup > [^1] DONE / REDO 
+    * footnote number > [^1]: DONE / REDO
   * table > | __ |
-  * img > {{< img class="center" data-src="a['href']" title="post title" alt="post title in issue name (#issue num, issue year)" >}}
+  * img > {{< img class="center" data-src="a['href']" title="post title" alt="post title in issue name (#issue num, issue year)" >}} DONE
   * links > []() DONE
   * li > * DONE (won't work if non-unicode characters used)
   * blockquote > > DONE (won't work for nested blockquotes)
+  * shortcodes for yt, vimeo, insta > done 
+  * embedded tweets?
 
 
 headers = {
@@ -87,3 +89,12 @@ r = requests.get(url, headers=headers)
 t,v,s = scrape(r.content,'html5lib',url)
 with open('./sas.txt','w+') as f:
     f.write(t)
+
+## manual override
+* http://www.india-seminar.com/2000/485/485%20index.htm
+
+# text analysis 
+- a lot more references being made in recent years than in past 
+- word size and readability over the years 
+- sentiment analysis 
+- 

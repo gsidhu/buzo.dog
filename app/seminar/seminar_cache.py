@@ -130,55 +130,6 @@ def scrape(html, parser):
         if trash in text:
             text = text[:text.find(trash)]
 
-    text = tabulate(soup, text)
-
-    return text
-
-def tabulate(soup, text):
-    # turns the tables in the text into html tables
-    tables = soup.find_all('table')
-    if len(tables) == 0:
-        return text
-    lines = text.split('\n')
-    for tb in tables:
-        rows = tb.find_all('tr')
-        ncols = [len(tr.find_all('td')) for tr in rows]
-        htable = '''<table class='table table-bordered'><tbody>'''
-        for n in range(len(rows)):
-            htable += "<tr>"
-            for c in range(ncols[n]):
-                if ncols[n] == 1:
-                    htable += "<td colspan=" + str(max(ncols)) + "'>"
-                else:
-                    htable += '<td>'
-                htable += ' '.join(rows[n].find_all('td')[c].get_text().replace('\n', '').split())
-                htable += '</td>'
-                if n == 0:
-                    first = ' '.join(rows[n].find_all('td')[c].get_text().replace('\n', '').split())
-                if n == (len(rows)-1):
-                    last = ' '.join(rows[n].find_all('td')[c].get_text().replace('\n', '').split())
-            htable += "</tr>"
-        htable += '''</tbody></table>'''
-    
-        try:
-            findex = lines.index(first)
-        except ValueError:
-            for j in range(1,len(first.split())+1):
-                if ' '.join(first.split()[:j]) in lines:
-                    findex = lines.index(' '.join(first.split()[:j]))
-                    break
-        
-        try:
-            lindex = lines.index(last)
-        except ValueError:
-            for j in range(1,len(last.split())+1):
-                if ' '.join(last.split()[:j]) in lines:
-                    lindex = lines.index(' '.join(last.split()[:j]))
-                    break
-        
-        lines = lines[:findex] + [htable] + lines[lindex+1:]
-    
-    text = '\n'.join(lines)
     return text
 
 ### CREATE DATABASE
