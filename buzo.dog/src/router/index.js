@@ -21,12 +21,17 @@ Vue.use(VueRouter)
   {
     path: '/scroll',
     name: 'Scroll',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Scroll.vue')
+    component: () => import(/* webpackChunkName: "scroll" */ '../views/Scroll.vue')
   },
   {
     path: '/cache',
     name: 'Cache',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Cache.vue')
+    component: () => import(/* webpackChunkName: "cache" */ '../views/Cache.vue')
+  },
+  {
+    path: '/edit',
+    name: 'Edit',
+    component: () => import(/* webpackChunkName: "edit" */ '../components/Edit.vue')
   }
 ]
 

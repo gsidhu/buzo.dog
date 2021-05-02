@@ -97,4 +97,11 @@ with open('./sas.txt','w+') as f:
 - a lot more references being made in recent years than in past 
 - word size and readability over the years 
 - sentiment analysis 
-- 
+
+
+## TO DO 
+1. Check that all issues and all articles in each issue have been covered [574 missing]
+2. Add all missing articles from skip.txt
+3. Add weight and do other post-processing to all new articles
+4. Number all articles again.
+5. 

@@ -1,8 +1,16 @@
-
 import pymongo
-myclient = pymongo.MongoClient('127.0.0.1', 27017)
+import urllib.parse
+username = urllib.parse.quote_plus('') # defined in env
+password = urllib.parse.quote_plus('') # defined in env
+myclient = pymongo.MongoClient('mongodb://%s:%s@127.0.0.1' % (username, password), 27017)
 mydb = myclient['buzodog']
-mycol = mydb['core']
+mycol = mydb['cache']
+
+
+# import pymongo
+# myclient = pymongo.MongoClient('127.0.0.1', 27017)
+# mydb = myclient['buzodog']
+# mycol = mydb['core']
 
 import argparse
 import logging as log

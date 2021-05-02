@@ -1,23 +1,61 @@
 <template>
     <div class='col-sm mx-auto my-4'>
         <h3 id='title'>Source: {{title}}</h3>
-        <div v-bind:key="link._id" v-for="link in links" class="links-div my-2">
-            <Item v-bind:link="link" />
+        
+        <!-- Card view -->
+        <div v-if="card" id='card-view' class='row row-cols-1 row-cols-md-2 row-cols-lg-3'>
+            <div v-bind:key="index" v-for="(link, index) in links" class="col links-div my-2">
+                <Item v-bind:link="link" v-bind:index="index" type='card' @call="populateModal" />
+            </div>
         </div>
+
+        <!-- List view -->
+        <div v-else id='link-view'>
+            <ol>
+                <li v-bind:key="index" v-for="(link, index) in links" class="card-header my-1">
+                    <Item v-bind:link="link" v-bind:index="index" type='list' @call="populateModal" />
+                </li>
+            </ol>
+        </div>
+
+        <!-- Edit modal -->
+        <Edit id="edit-modal" />
     </div>
 </template>
 
 <script>
 import Item from './Item'; 
+import Edit from '@/components/Edit'
 // eslint-disable-line no-unused-vars
 export default {
     name: "Links",
     components: {
-        Item
+        Item,
+        Edit
     },
-    props: ["links", "title"]
+    data() {
+      return {
+        isLoggedIn: true
+      };
+    },
+    props: ["links", "title", "card"],
+    methods: {
+        populateModal(e) {
+            document.getElementById('link-title').value = this.links[e].title
+            document.getElementById('link-publication').value = this.links[e].source
+            document.getElementById('link-description').value = this.links[e].description
+            document.getElementById('link-tags').value = this.links[e].tags
+        }
+
+    }
 }
 </script>
 
 <style scoped>
+#link-view {
+    text-align:left;
+}
+ul {
+    list-style-type: none;
+}
 </style>

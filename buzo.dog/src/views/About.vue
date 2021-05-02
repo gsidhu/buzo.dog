@@ -25,33 +25,16 @@
     </p>
 
     <h3>Who am I?</h3>
-    <avatar
-          avatarStyle='Circle'
-          topType='Turban'
-          hatColor='Black'
-          accessoriesType='Prescription02'
-          hairColor='Black'
-          facialHairType='BeardMedium'
-          facialHairColor='Black'
-          clotheType='Hoodie'
-          clotheColor='Black'
-          eyeType='Default'
-          eyebrowType='DefaultNatural'
-          mouthType='Smile'
-          skinColor='Brown'
-        />
-      <p class='text-muted'><a href='https://thatgurjot.com/'>Mysterious Turban Man</a></p>
+    <img src="../assets/gurjot.png" style="width: 250px">
+    <p class='text-muted'><a href='https://thatgurjot.com/'>Mysterious Turban Man</a></p>
   </div>
 </template>
 
 <script>
-import { ReactInVue } from 'vuera'
-import Avatar from 'avataaars'
 
 export default {
   name: 'About',
   components: {
-    'avatar': ReactInVue(Avatar)
   }
 }
 </script>

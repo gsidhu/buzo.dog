@@ -1,12 +1,11 @@
 <template>
-  <div id="app" class='container'>
-      <Publications v-bind:pubs="pubs" />
-  </div>
+  <main class='container'>
+    <Publications v-bind:pubs="pubs" />
+  </main>
 </template>
 
 <script>
 import Publications from '../components/Publications';
-
 // import axios from 'axios';
 // import $ from 'jquery';
 
