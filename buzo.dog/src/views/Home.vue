@@ -58,6 +58,8 @@ export default {
             const el = document.getElementById('fetch-link')
             el.href = this.bone[0].link
             el.title = this.bone[0].title
+
+            document.getElementsByTagName('title')[0].textContent = "buzo.dog" 
         })
         .catch( err => console.log(err));
   },

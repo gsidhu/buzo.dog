@@ -61,14 +61,12 @@ export default {
         
         // push them to the variable
         if (push) {
-          console.log('pushed')
           axios.get(api_link)
             .then( response => {
               this.links.push.apply(this.links, response.data);
             })
             .catch( err => console.log(err));
         } else {
-          console.log('not pushed')
           axios.get(api_link)
             .then( response => this.links = response.data)
             .catch( err => console.log(err));

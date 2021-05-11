@@ -32,7 +32,17 @@ Vue.use(VueRouter)
     path: '/edit',
     name: 'Edit',
     component: () => import(/* webpackChunkName: "edit" */ '../components/Edit.vue')
+  },
+  {
+    path: '/add',
+    name: 'Add',
+    component: () => import(/* webpackChunkName: "add" */ '../views/Add.vue')
   }
+  // {
+  //   path: '/login',
+  //   name: 'Login',
+  //   component: () => import(/* webpackChunkName: "login" */ '../components/Login.vue')
+  // }
 ]
 
 const router = new VueRouter({

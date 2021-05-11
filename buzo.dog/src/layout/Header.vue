@@ -4,7 +4,7 @@
             <img alt="Buzo logo" src="../assets/buzo.png">
             <h1>Buzo.Dog</h1>
         </router-link>
-        <p>{{ msg }}</p>
+        <p @click='login()'>{{ msg }}</p>
     </header>
 </template>
 
@@ -15,7 +15,17 @@ export default {
     },
     data() {
         return {
-            msg: "A no nonsense library."
+            msg: "My personal reader.",
+            allow: 0
+        }
+    },
+    methods: {
+        login() {
+            this.allow = this.allow + 1
+            if (this.allow === 5) {
+                console.log(this.allow)
+                sessionStorage.setItem('isLoggedIn', true);
+            }
         }
     }
 }

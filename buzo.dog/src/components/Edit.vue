@@ -48,7 +48,6 @@ export default {
   props: ["links"],
   data() {
     return {
-      isLoggedIn: true,
     }
   }
 }

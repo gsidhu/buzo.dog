@@ -1,5 +1,5 @@
 <template>
-  <div class='about col-md-8 mx-auto my-4'>
+  <div class='col-md-8 mx-auto my-4' style='text-align: left'>
     <h3>What is this site?</h3>
     <p>Buzo.dog is a no nonsense library of articles from a selection of publications spanning across culture, technology, science, phiosophy and general wisdom. This website has emerged out of <a href='https://thatgurjot.com/'>my</a> desire to teach myself the fundamentals of web development with Vuejs.</p>
 
@@ -11,7 +11,7 @@
 
     <h3>This is a cool site. Can I help?</h3>
     <p>Sure! You can help me cover the cost of keeping this site up and for buying Buzo treats. (belly rubs cost extra)</p>
-    <ul class='list-inline'>
+    <ul class='list-inline' style='text-align: center'>
       <li class='list-inline-item mb-2'>
         <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/thatgurjot"><img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Buy me a Book"><span style="margin-left:5px;font-size:18px !important;">Foreign users</span></a>
       </li>
@@ -25,8 +25,8 @@
     </p>
 
     <h3>Who am I?</h3>
-    <img src="../assets/gurjot.png" style="width: 250px">
-    <p class='text-muted'><a href='https://thatgurjot.com/'>Mysterious Turban Man</a></p>
+    <img src="../assets/gurjot.png" style="width: 250px;" class='d-block mx-auto'>
+    <p class='text-muted' style='text-align: center'><a href='https://thatgurjot.com/'>Mysterious Turban Man</a></p>
   </div>
 </template>
 
@@ -35,6 +35,9 @@
 export default {
   name: 'About',
   components: {
+  },
+  created() {
+    document.getElementsByTagName('title')[0].textContent = "About | buzo.dog" 
   }
 }
 </script>

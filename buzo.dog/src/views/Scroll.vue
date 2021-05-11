@@ -32,6 +32,7 @@ export default {
     }
   },
   created() {
+    document.getElementsByTagName('title')[0].textContent = "Browse | buzo.dog" 
     // code for pulling publications from API
       // axios.get('https://api.buzo.dog/api/v1/resources/links?count=10')
       //   .then( response => this.links = response.data)

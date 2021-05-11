@@ -42,8 +42,7 @@
       <a v-bind:href="link.link" rel="nofollow" target="_blank">Original</a>
       |
       <a v-bind:href="'/#/cache?id=' + link._id">Cached</a>
-      &mdash;
-      <a v-if="isLoggedIn" role='button' data-toggle="modal" data-target="#edit-modal" v-bind:data-serial="index" @click="callModal(index)">✏️</a>
+      <a v-if="isLoggedIn" role='button' data-toggle="modal" data-target="#edit-modal" v-bind:data-serial="index" @click="callModal(index)"> &mdash; ✏️</a>
     </div>
   </div>
 
@@ -57,7 +56,7 @@ export default {
   },
   data() {
     return {
-      isLoggedIn: true,
+      isLoggedIn: sessionStorage.getItem('isLoggedIn'),
     }
   },
   methods: {
@@ -72,7 +71,6 @@ export default {
 .link:hover {
     background-color: #f7f5f5;
 }
-
 .card {
   text-align: left;
   height: 300px;
@@ -84,7 +82,6 @@ export default {
     text-align: left;
     margin-bottom: 0;
 }
-
 .card-img-top {
     width: 100%;
     height: 10vw;

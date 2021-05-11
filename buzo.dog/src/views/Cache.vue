@@ -1,6 +1,6 @@
 <template>
   <article onscroll="blurToolbar()">
-    <Toolbar :reader="1" @modal="populateModal" @links="getCachedLinks" @toggle="html = !html"/>
+    <Toolbar :reader="1" :isFaved="isFaved" @modal="populateModal" @links="getCachedLinks" @toggle="html = !html"/>
 
     <section id='meta'>
       <div id='meta-box' class='col-md-6 mx-auto my-4'>
@@ -12,10 +12,9 @@
       </div>
     </section>
 
-    <section id='text'>
+    <section id='text' class='py-4'>
       <div class='col-10 col-md-8 col-xl-6 mx-auto my-4'>
         <div v-if='html' class='raw' id='raw-html'></div>
-
         <div v-else class='raw' id='raw-text'>{{ link[0].text }} </div>
       </div>
     </section>
@@ -46,24 +45,28 @@ export default {
       cachedIndices: [],
       promises: [],
       html: true,
-      isLoggedIn: true
+      isFaved: false
     }
   },
   created() {
-      var api_link = 'https://api.buzo.dog/api/v1/resources/links?_id=' + this.id;
+      var api_link = 'https://api.buzo.dog/api/v1/resources/links?iD=' + this.id;
       axios.get(api_link)
         .then( response => {
-          this.link = response.data
+          var payload = response.data
+          this.link = payload
+          this.isFaved = payload[0].likes
 
           // add meta and text
-          document.getElementById('meta-title-link').href = this.link[0].link
-          document.getElementById('meta-title-link').textContent = this.link[0].title
-          document.getElementById('meta-description').textContent = this.link[0].description
-          document.getElementById('meta-source').textContent = '— '.concat(this.link[0].source)
-          if (this.link[0].tags) {document.getElementById('meta-tags').textContent = 'Tags: '.concat(this.link[0].tags)}
-          if (this.link[0].pubdate) {document.getElementById('meta-pubdate').textContent = 'Published on: '.concat(this.link[0].pubdate)}
+          document.getElementById('meta-title-link').href = payload[0].link
+          document.getElementById('meta-title-link').textContent = payload[0].title
+          document.getElementById('meta-description').textContent = payload[0].description
+          document.getElementById('meta-source').textContent = '— '.concat(payload[0].source)
+          if (payload[0].tags) {document.getElementById('meta-tags').textContent = 'Tags: '.concat(payload[0].tags)}
+          if (payload[0].pubdate) {document.getElementById('meta-pubdate').textContent = 'Published on: '.concat(payload[0].pubdate)}
 
-          document.getElementById('raw-html').innerHTML = this.link[0].html
+          document.getElementById('raw-html').innerHTML = payload[0].html
+
+          document.getElementsByTagName('title')[0].textContent = payload[0].title + " – " + payload[0].source + " | buzo.dog" 
         })
         .catch( err => console.log(err));
   },
@@ -189,7 +192,6 @@ export default {
     height: 70vw;
   }
 }
-
 #meta-box {
   text-align: left;
   padding: 20px;
@@ -203,6 +205,9 @@ export default {
   /* border-bottom: 1px black solid; */
   color: black;
 }
+#text {
+  background-color: #fef7f2;
+}
 .raw blockquote {
   padding-left: 10px;
   border-left: 5px #ddd solid;
@@ -210,7 +215,6 @@ export default {
 .raw blockquote > p {
   margin: 0 2rem 1rem 0;
 }
-
 #raw-text, #raw-buzotext {
   white-space: pre-line;
 }

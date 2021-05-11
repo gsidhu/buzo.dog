@@ -35,7 +35,6 @@ export default {
     },
     data() {
       return {
-        isLoggedIn: true
       };
     },
     props: ["links", "title", "card"],
@@ -55,7 +54,7 @@ export default {
 #link-view {
     text-align:left;
 }
-ul {
-    list-style-type: none;
+ol {
+  padding-left: 1em;
 }
 </style>
