@@ -48,42 +48,49 @@ async def main(count: Optional[int] = None, source: Optional[str] = None,
             result = crud.read(id=iD)
     else:
         result = crud.read(count=count, source=source)
-
     return result
 
 # Fetch link details
-@app.get("/api/v1/storage/fetch")
-async def fetch(link: str):
+@app.get("/api/v1/storage/add")
+async def store(link: str):
     response = crud.fetch(link)
+    # if it's a new link, add it to db
+    if 'exists' not in response.keys():
+        location = crud.add(response)
+        response['_id'] = location
+    
+    del response['text']
+    del response['html']
+    del response['image']
+    del response['pubdate']
     return response
 
 ## should insert in db on fetch; submit should only make updates if any changes.
 
 # Push info
-@app.put("/api/v1/storage/add")
-async def store(link: str, title: Optional[str] = None, source: Optional[str] = None,
+@app.post("/api/v1/storage/update")
+async def update(iD: str, title: Optional[str] = None, source: Optional[str] = None,
                 description: Optional[str] = None, tags: Optional[str] = None,
-                language: Optional[str] = None, author: Optional[str] = None,
-                html: Optional[str] = None, text: Optional[str] = None, 
-                pubdate: Optional[str] = None):
+                language: Optional[str] = None, author: Optional[str] = None):
                 collection = {
-                    'link': link,
+                    '_id': iD,
                     'title': title,
                     'source': source,
                     'description': description,
                     'tags': tags,
                     'language': language,
-                    'author': author,
-                    'text': text,
-                    'html': html,
-                    'pubdate': pubdate
+                    'author': author
                 }
-                if pubdate == None:
-                    collection['pubdate'] = ''
 
-                response = crud.add(collection)
+                response = crud.update(collection)
                 
                 if response:
-                    return "Success"
+                    return {"success": 1}
                 else:
-                    return "Fail"
+                    return {"success": 0}
+
+# Delete item from DB
+@app.delete("/api/v1/storage/purge")
+async def delete(iD: str):
+    response = crud.delete(iD)
+    return {"deleted": response}

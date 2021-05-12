@@ -62,6 +62,7 @@ def cache_art(url):
     article.parse()
     struct = {
         'html': article.article_html,
+        'link': url,
         'author': article.authors,
         'pubdate': article.publish_date,
         'text': article.text,

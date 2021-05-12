@@ -3,7 +3,7 @@ import urllib.parse
 username = urllib.parse.quote_plus('thatgurjot') # defined in env
 password = urllib.parse.quote_plus('fz*NJPrbkypUMU@*@FanqRe65T2') # defined in env
 myclient = pymongo.MongoClient('mongodb://%s:%s@127.0.0.1' % (username, password), 27017)
-# myclient = pymongo.MongoClient('mongodb://127.0.0.1', 27017)
+# myclient = pymongo. MongoClient('mongodb://127.0.0.1', 27017)
 mydb = myclient['buzodog']
 
 import argparse
@@ -83,8 +83,21 @@ def create():
 
 ### FETCH LINK DETAILS
 def fetch(url):
-    struct = cache.cache_art(url)
+    mycol = mydb['cache']
+    # check if url already exists
+    # TODO: replace this with an actual fuzzy search function because links can have trailing slashes and such
+    pipeline = [{"$match": {"link": url}}]
+    struct = list(mycol.aggregate(pipeline))
+    if len(struct) == 0:
+        struct = cache.cache_art(url)
+    else:
+        struct = struct[0]
+        struct['exists'] = True
+    # add description if missing
+    if struct['description'] == '':
+        struct['description'] = struct['text'][:350]
     return struct
+    
 
 ### ADD TO DATABASE
 def add(collection):
@@ -102,10 +115,10 @@ def add(collection):
     counter += 1
     collection['date_added'] = datetime.today().strftime('%Y-%m-%d')
     collection['_id'] = hashids.encode(counter)
-    collection['fav'] = 0
+    collection['likes'] = 0
 
     mycol.insert_one(collection)
-    return True
+    return collection['_id']
 
 ### READ DATABASE
 def read(count=1, give_sources=0, **kwargs):
@@ -113,30 +126,63 @@ def read(count=1, give_sources=0, **kwargs):
     args = []
     for i in kwargs.keys():
         args.append({i: kwargs[i]})
-    
-    if 'db' in kwargs.keys():
-        mycol = mydb[kwargs['db']]
 
-    if 'id' in kwargs.keys():
-        pipeline = [{"$match": {"_id": kwargs['id']}}]
-    elif 'link' in kwargs.keys():
-        pipeline = [{"$match": {"link": kwargs['link']}}]
+    if 'source' in kwargs.keys() and kwargs['source'] == 'Recent':
+        result = list(mycol.find({}).limit(count).sort([('$natural', -1 )]))
     else:
-        if len(args) > 0:
-            pipeline = [
-                    {"$match": {"$and": args}},
-                    {"$sample": {"size": count}}
-                ]
-        else:
-            pipeline = [ 
-                    {"$sample": {"size": count}}
-                ]
+        if 'source' in kwargs.keys() and kwargs['source'] == 'Favourite':
+            args[0]['likes'] = 1
+            del args[0]['source']
 
-    result = list(mycol.aggregate(pipeline))
+        if 'db' in kwargs.keys():
+            mycol = mydb[kwargs['db']]
+
+        if 'id' in kwargs.keys():
+            pipeline = [{"$match": {"_id": kwargs['id']}}]
+        elif 'link' in kwargs.keys():
+            pipeline = [{"$match": {"link": kwargs['link']}}]
+        else:
+            if len(args) > 0:
+                pipeline = [
+                        {"$match": {"$and": args}},
+                        {"$sample": {"size": count}}
+                    ]
+            else:
+                pipeline = [ {"$sample": {"size": count}} ]
+        result = list(mycol.aggregate(pipeline))
 
     return result
 
 ### UPDATE DATABASE
+def update(collection):
+    mycol = mydb['cache']
+
+    myquery = { "_id": collection["_id"] }
+
+    newvalues = { "$set": { 
+        "title": collection['title'],
+        'source': collection['source'],
+        'description': collection['description'],
+        'tags': collection['tags'],
+        'language': collection['language'],
+        'author': collection['author']
+        } }
+    try:
+        mycol.update_one(myquery, newvalues)
+        return True
+    except:
+        return False
+
+# DELETE ITEM
+def delete(iD):
+    mycol = mydb['cache']
+
+    myquery = { "_id": iD }
+    try:
+        mycol.delete_one(myquery)
+        return True
+    except:
+        return False
 
 if __name__ == '__main__':
     ############################

@@ -1,17 +1,18 @@
 <template>
   <div class="text-center space-out bg-color"> 
     <h4 class="mt-5 font-weight-normal">{{msg}}</h4>
-    <form v-if="!fetched" class="form-signin">
+    <form v-if="!fetched && isLoggedIn" id='fetch-form' class="form-signin">
       <div class="my-2">
         <label for="inputLink" class="sr-only">Link</label>
         <input type="text" id="inputLink" class="form-control" placeholder="URL" required="true" autofocus="" autocomplete="off">
       </div>
-      <button v-if="isLoggedIn" class="btn btn-lg btn-primary btn-block mb-5" @click="fetch()">Fetch!</button>
+      <button class="btn btn-lg btn-primary btn-block mb-5" @click="fetch()">Fetch!</button>
     </form>
 
     <section id="result" class='col-10 col-lg-8 col-xl-6 mx-auto d-none'>
         <div>
             <h5><strong>Submitted URL: </strong><a id='submitted-link' href="/" rel="nofollow" target="_blank"></a></h5>
+            <a id='cached-link' href="" target="_blank">Read cached copy here.</a>
         </div>
         <div class="row row-cols-1">
             <div class="col my-2">
@@ -39,16 +40,8 @@
               <input type="text" class="form-control" id="link-author" placeholder="" value="">
             </div>
             <div class='col my-2'>
-              <label for="link-html"><strong>Raw HTML</strong></label>
-              <textarea type="text" class="form-control" id="link-html" placeholder="" value=""></textarea>
-            </div>
-            <div class='col my-2'>
-              <label for="link-text"><strong>Text</strong></label>
-              <textarea type="text" class="form-control" id="link-text" placeholder="" value=""></textarea>
-            </div>
-            <div class='col my-2'>
               <label class=''>
-                <input id="link-fix" type="checkbox" aria-label="Mark item as 'to fix'"> <strong>Needs fixing</strong>
+                <input id="link-delete" type="checkbox" aria-label="Mark item as 'to fix'"> <strong>Delete</strong>
               </label>
             </div>
         </div>
@@ -57,19 +50,27 @@
             <button class="btn btn-lg btn-warning mb-5" @click="reset()">Cancel</button>
         </div>
     </section>
+    <section class='col-md-6 col-lg-4 mx-auto mb-5'>
+      <Item v-if="submitted" v-bind:link="bone" v-bind:index="0" type='card' />
+    </section>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Item from '../components/Item'
 
 export default {
   name: 'Add',
+  components: {
+    Item
+  },
   data: function() {
     return {
       link: '',
       bone: [],
       fetched: false,
+      submitted: false,
       msg: 'Add a new article',
       isLoggedIn: sessionStorage.getItem('isLoggedIn')
     };
@@ -79,12 +80,21 @@ export default {
   methods: {
     fetch() {
       this.link = document.getElementById('inputLink').value
-      axios.get(("https://api.buzo.dog/api/v1/storage/fetch?link=" + encodeURI(this.link)))
+      this.link = this.link.split(/[?#]/)[0] // remove query string
+      axios.get(("https://api.buzo.dog/api/v1/storage/add?link=" + encodeURI(this.link)))
+      // axios.get(("http://127.0.0.1:8000/api/v1/storage/add?link=" + encodeURI(this.link)))
         .then ( response => { 
           this.bone = response.data
-          this.fetched = true
-          document.getElementById('result').classList.remove('d-none')
-          this.populateFields()
+          if (response.data.exists) {
+            this.msg = 'Article already exists in library.'
+            this.submitted = true
+            document.getElementById('fetch-form').classList.add('d-none')
+          } else {
+            this.fetched = true
+            this.submitted = false
+            document.getElementById('result').classList.remove('d-none')
+            this.populateFields()
+          }
         })
         .catch ( err => {
           console.log(err)
@@ -94,42 +104,40 @@ export default {
     populateFields() {
       var host = new URL(this.link)
       host = host.host
-      // document.getElementById('submitted-link').textContent = this.bone[0].link
       document.getElementById('submitted-link').textContent = this.link
       document.getElementById('submitted-link').href = this.link
+      document.getElementById('cached-link').href = '/#/cache?id=' + this.bone._id
       document.getElementById('link-title').value = this.bone.title
       document.getElementById('link-publication').value = host
       document.getElementById('link-description').value = this.bone.description
-      // document.getElementById('link-tags').value = this.bone[0].tags
       document.getElementById('link-author').value = this.bone.author
-      document.getElementById('link-html').value = this.bone.html
-      document.getElementById('link-text').value = this.bone.text
     },
     push() {
+      if (document.getElementById('link-delete').checked) {
+        axios.delete("https://api.buzo.dog/api/v1/storage/purge?iD=" + this.bone._id)
+          .then( response => {
+            console.log(response.data)
+            this.reset()
+            this.submitted = false
+          })
+          .catch(error => console.log(error))
+      }
       var payload = {
-        link: this.link,
+        iD: this.bone._id,
         title: document.getElementById('link-title').value,
         source: document.getElementById('link-publication').value,
         description: document.getElementById('link-description').value,
         tags: document.getElementById('link-tags').value,
         language: document.getElementById('link-language').value,
-        author: document.getElementById('link-author').value,
-        // text: document.getElementById('link-text').value,
-        // html: document.getElementById('link-html').value,
-        pubdate: this.bone.pubdate
+        author: document.getElementById('link-author').value
       }
       console.log(payload)
       payload = this.toQueryString(payload)
 
-      // const config = {
-      //   headers: {
-      //     "Referer": "https://buzo.dog",
-      //     "Referrer-Policy": "same-origin"
-      //   },
-      // };
-      axios.put(("https://api.buzo.dog/api/v1/storage/add" + payload))
+      axios.post(("https://api.buzo.dog/api/v1/storage/update" + payload))
+      // axios.post(("http://127.0.0.1:8000/api/v1/storage/update" + payload))
         .then(response => {
-          if(response.data === 'Success') {
+          if(response.data.success) {
             this.reset(1)
           } else {
             this.reset(0)
@@ -149,17 +157,20 @@ export default {
       return query
     },
     reset(success=null) {
-      if (success === null) {
-        this.msg = "Add a new article"
-      } else if (success === 1) {
-        this.msg = "Link added successfully. Add another?"
-      } else if (success === 0) {
-        this.msg = "Link could not be added. Try another?"
-      }
-      this.link = ''
-      this.bone = []
       this.query = null
       this.fetched = false
+      if (success === null) {
+        this.msg = "Add a new article"
+        this.bone = []
+      } else if (success === 1) {
+        this.msg = "Link added! Add another?"
+        this.submitted = true
+        this.bone.link = this.link
+      } else if (success === 0) {
+        this.msg = "That didn't work. Try again?"
+        this.bone = []
+      }
+      this.link = ''
       document.getElementById('result').classList.add('d-none')
     }
   }

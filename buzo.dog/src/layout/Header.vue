@@ -4,7 +4,7 @@
             <img alt="Buzo logo" src="../assets/buzo.png">
             <h1>Buzo.Dog</h1>
         </router-link>
-        <p @click='login()'>{{ msg }}</p>
+        <p>{{ msg }}</p>
     </header>
 </template>
 
@@ -17,15 +17,6 @@ export default {
         return {
             msg: "My personal reader.",
             allow: 0
-        }
-    },
-    methods: {
-        login() {
-            this.allow = this.allow + 1
-            if (this.allow === 5) {
-                console.log(this.allow)
-                sessionStorage.setItem('isLoggedIn', true);
-            }
         }
     }
 }

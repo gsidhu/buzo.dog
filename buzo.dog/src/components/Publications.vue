@@ -1,6 +1,14 @@
 <template>
     <div class='mx-auto my-4'>
       <toolbar :reader=0 @toggle="card = !card"></toolbar>
+        <div class="row mx-auto justify-content-center">
+            <div v-bind:key="index" v-for="(cat, index) in cats" class="links-div mb-2 mx-1 shadow-sm">
+                <a role='button' class="no-underline btn btn-outline-dark link" v-on:click="fetchMore(cat.title, 0)">
+                    {{ cat.title }}
+                </a>
+            </div>
+        </div>
+        <hr style="width: 30%"/>
         <h3 id='links'>Publications</h3>
         <div class="row mx-auto justify-content-center">
             <div v-bind:key="index" v-for="(pub, index) in pubs" class="links-div mb-2 mx-1 shadow-sm">
@@ -24,7 +32,7 @@ import $ from 'jquery';
 // eslint-disable-line no-unused-vars
 export default {
   name: 'Publications',
-  props: ["pubs"],
+  props: ["pubs", "cats"],
   components: {
     Links,
     Toolbar
@@ -57,6 +65,7 @@ export default {
             api_link = 'https://api.buzo.dog/api/v1/resources/links?count=15';
         } else {
             api_link = 'https://api.buzo.dog/api/v1/resources/links?count=15' + '&source=' + encodeURI(source);
+            // api_link = 'http://127.0.0.1:8000/api/v1/resources/links?count=15' + '&source=' + encodeURI(source);
         }
         
         // push them to the variable
@@ -76,7 +85,9 @@ export default {
       window.onscroll = () => {
         let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
         if (bottomOfWindow) {
-          this.fetchMore(this.title, 1)
+          if (this.links.length >= 15) {
+            this.fetchMore(this.title, 1)
+          }
         }
       }
     },
