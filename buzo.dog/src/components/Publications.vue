@@ -65,7 +65,6 @@ export default {
             api_link = 'https://api.buzo.dog/api/v1/resources/links?count=15';
         } else {
             api_link = 'https://api.buzo.dog/api/v1/resources/links?count=15' + '&source=' + encodeURI(source);
-            // api_link = 'http://127.0.0.1:8000/api/v1/resources/links?count=15' + '&source=' + encodeURI(source);
         }
         
         // push them to the variable

@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 
 from typing import Optional
@@ -71,16 +71,25 @@ async def store(link: str):
 @app.post("/api/v1/storage/update")
 async def update(iD: str, title: Optional[str] = None, source: Optional[str] = None,
                 description: Optional[str] = None, tags: Optional[str] = None,
-                language: Optional[str] = None, author: Optional[str] = None):
-                collection = {
+                language: Optional[str] = None, author: Optional[str] = None,
+                likes: Optional[str] = None):
+                queries = {
                     '_id': iD,
                     'title': title,
                     'source': source,
                     'description': description,
                     'tags': tags,
                     'language': language,
-                    'author': author
+                    'author': author,
+                    'likes': likes
                 }
+                collection = {}
+                for k in queries.keys():
+                    if queries[k] != None:
+                        if k == 'likes':
+                            collection[k] = int(queries[k])
+                        else:
+                            collection[k] = queries[k]
 
                 response = crud.update(collection)
                 

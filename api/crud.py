@@ -1,9 +1,5 @@
 import pymongo
-import urllib.parse
-username = urllib.parse.quote_plus('thatgurjot') # defined in env
-password = urllib.parse.quote_plus('fz*NJPrbkypUMU@*@FanqRe65T2') # defined in env
-myclient = pymongo.MongoClient('mongodb://%s:%s@127.0.0.1' % (username, password), 27017)
-# myclient = pymongo. MongoClient('mongodb://127.0.0.1', 27017)
+myclient = pymongo. MongoClient('mongodb://127.0.0.1', 27017)
 mydb = myclient['buzodog']
 
 import argparse
@@ -158,15 +154,11 @@ def update(collection):
     mycol = mydb['cache']
 
     myquery = { "_id": collection["_id"] }
+    newvalues = { "$set": collection }
 
-    newvalues = { "$set": { 
-        "title": collection['title'],
-        'source': collection['source'],
-        'description': collection['description'],
-        'tags': collection['tags'],
-        'language': collection['language'],
-        'author': collection['author']
-        } }
+    with open('./test.txt', 'w+') as f:
+        f.write(str(newvalues))
+
     try:
         mycol.update_one(myquery, newvalues)
         return True

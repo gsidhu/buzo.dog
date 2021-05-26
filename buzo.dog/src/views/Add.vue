@@ -82,7 +82,6 @@ export default {
       this.link = document.getElementById('inputLink').value
       this.link = this.link.split(/[?#]/)[0] // remove query string
       axios.get(("https://api.buzo.dog/api/v1/storage/add?link=" + encodeURI(this.link)))
-      // axios.get(("http://127.0.0.1:8000/api/v1/storage/add?link=" + encodeURI(this.link)))
         .then ( response => { 
           this.bone = response.data
           if (response.data.exists) {
@@ -135,7 +134,6 @@ export default {
       payload = this.toQueryString(payload)
 
       axios.post(("https://api.buzo.dog/api/v1/storage/update" + payload))
-      // axios.post(("http://127.0.0.1:8000/api/v1/storage/update" + payload))
         .then(response => {
           if(response.data.success) {
             this.reset(1)

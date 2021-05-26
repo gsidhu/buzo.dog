@@ -40,10 +40,12 @@ export default {
     props: ["links", "title", "card"],
     methods: {
         populateModal(e) {
+            document.getElementById('link-id').textContent = this.links[e]._id
             document.getElementById('link-title').value = this.links[e].title
             document.getElementById('link-publication').value = this.links[e].source
             document.getElementById('link-description').value = this.links[e].description
             document.getElementById('link-tags').value = this.links[e].tags
+            document.getElementById('link-author').value = this.links[e].author
         }
 
     }

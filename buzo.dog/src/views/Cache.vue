@@ -1,6 +1,6 @@
 <template>
   <article onscroll="blurToolbar()">
-    <Toolbar :reader="1" :isFaved="isFaved" @modal="populateModal" @links="getCachedLinks" @toggle="html = !html"/>
+    <Toolbar :reader="1" :isFaved="isFaved" @modal="populateModal" @links="getCachedLinks" @toggle="html = !html" @fav="favit"/>
 
     <section id='meta'>
       <div id='meta-box' class='col-md-6 mx-auto my-4'>
@@ -167,10 +167,31 @@ export default {
       });
     },
     populateModal() {
+      document.getElementById('link-id').textContent = this.link[0]._id
       document.getElementById('link-title').value = this.link[0].title
       document.getElementById('link-publication').value = this.link[0].source
       document.getElementById('link-description').value = this.link[0].description
       document.getElementById('link-tags').value = this.link[0].tags
+      document.getElementById('link-author').value = this.link[0].author
+    },
+    favit() {
+      const iD = this.link[0]._id
+      if (this.isFaved) {
+        var likes = 0
+      } else { likes = 1 }
+
+      axios.post(("https://api.buzo.dog/api/v1/storage/update?iD=" + iD + "&likes=" + likes))
+        .then(response => {
+        if(response.data.success) {
+            console.log("success")
+            this.isFaved = !this.isFaved
+        } else {
+            console.log("failed")
+        }
+        })
+        .catch(error => {
+        console.log(error);
+        });
     }
   }
 }
