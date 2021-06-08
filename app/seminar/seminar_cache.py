@@ -50,7 +50,7 @@ from pprint import pprint as pp
 #         './scrapers/alexdanco_dump.json']
 
 dumps = ['./scrapers/seminar_dump.json']
-# dumps = ['/Users/thatgurjot/Git Repos/buzo.dog/app/scrapers/seminar_dump.json']
+# dumps = ['/Users/thatgurjot/Git Repos/buzo.xyz/app/scrapers/seminar_dump.json']
 
 ### Create a backup
 def backup():
@@ -75,7 +75,7 @@ def restore():
 def cache_art(url):
     headers = {
             'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:77.0) Gecko/20100101 Firefox/77.0",
-            'From': 'buzo@buzo.dog'
+            'From': 'buzo@buzo.xyz'
         }
     r = requests.get(url, headers=headers)
 

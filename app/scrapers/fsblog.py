@@ -21,7 +21,7 @@ def pull_archive(category, pages):
         print('URL:', l)
         headers = {
             'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:77.0) Gecko/20100101 Firefox/77.0",
-            'From': 'buzo@buzo.dog'
+            'From': 'buzo@buzo.xyz'
         }
         r = requests.get(l, headers=headers)
         soup = BeautifulSoup(r.content, 'html.parser')

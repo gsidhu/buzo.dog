@@ -34,9 +34,9 @@ export default {
     }
   },
   created() {
-    document.getElementsByTagName('title')[0].textContent = "Browse | buzo.dog" 
+    document.getElementsByTagName('title')[0].textContent = "Browse | buzo.xyz" 
     // code for pulling publications from API
-      // axios.get('https://api.buzo.dog/api/v1/resources/links?count=10')
+      // axios.get('https://api.buzo.xyz/api/v1/resources/links?count=10')
       //   .then( response => this.links = response.data)
       //   .catch( err => console.log(err));
   },

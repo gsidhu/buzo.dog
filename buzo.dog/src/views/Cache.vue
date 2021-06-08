@@ -49,7 +49,7 @@ export default {
     }
   },
   created() {
-      var api_link = 'https://api.buzo.dog/api/v1/resources/links?iD=' + this.id;
+      var api_link = 'https://api.buzo.xyz/api/v1/resources/links?iD=' + this.id;
       axios.get(api_link)
         .then( response => {
           var payload = response.data
@@ -66,7 +66,7 @@ export default {
 
           document.getElementById('raw-html').innerHTML = payload[0].html
 
-          document.getElementsByTagName('title')[0].textContent = payload[0].title + " – " + payload[0].source + " | buzo.dog" 
+          document.getElementsByTagName('title')[0].textContent = payload[0].title + " – " + payload[0].source + " | buzo.xyz" 
         })
         .catch( err => console.log(err));
   },
@@ -141,7 +141,7 @@ export default {
         var newHost = (new URL(tempLink)).hostname;
         // if same host, store the link and its index
         if (currentHost === newHost) {
-          tempLink = 'https://api.buzo.dog/api/v1/resources/links?link=' + encodeURI(tempLink);
+          tempLink = 'https://api.buzo.xyz/api/v1/resources/links?link=' + encodeURI(tempLink);
           this.cachedLinks.push(tempLink)
           this.cachedIndices.push(i)
         }
@@ -180,7 +180,7 @@ export default {
         var likes = 0
       } else { likes = 1 }
 
-      axios.post(("https://api.buzo.dog/api/v1/storage/update?iD=" + iD + "&likes=" + likes))
+      axios.post(("https://api.buzo.xyz/api/v1/storage/update?iD=" + iD + "&likes=" + likes))
         .then(response => {
         if(response.data.success) {
             console.log("success")

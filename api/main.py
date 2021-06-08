@@ -14,7 +14,7 @@ origins = [
     "http://127.0.0.1:8080",
     "http://localhost:8080",
     "http://192.168.1.60:8080",
-    "https://buzo.dog"
+    "https://buzo.xyz"
 ]
 
 app.add_middleware(
@@ -28,7 +28,7 @@ app.add_middleware(
 @app.get("/")
 async def root():
     return {
-        "name": "Buzo.Dog API",
+        "name": "buzo.xyz API",
         "version": "1.0.0",
         "author": "Gurjot Sidhu",
         "contact": "contact@thatgurjot.com"

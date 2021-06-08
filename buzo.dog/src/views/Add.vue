@@ -81,7 +81,7 @@ export default {
     fetch() {
       this.link = document.getElementById('inputLink').value
       this.link = this.link.split(/[?#]/)[0] // remove query string
-      axios.get(("https://api.buzo.dog/api/v1/storage/add?link=" + encodeURI(this.link)))
+      axios.get(("https://api.buzo.xyz/api/v1/storage/add?link=" + encodeURI(this.link)))
         .then ( response => { 
           this.bone = response.data
           if (response.data.exists) {
@@ -113,7 +113,7 @@ export default {
     },
     push() {
       if (document.getElementById('link-delete').checked) {
-        axios.delete("https://api.buzo.dog/api/v1/storage/purge?iD=" + this.bone._id)
+        axios.delete("https://api.buzo.xyz/api/v1/storage/purge?iD=" + this.bone._id)
           .then( response => {
             console.log(response.data)
             this.reset()
@@ -133,7 +133,7 @@ export default {
       console.log(payload)
       payload = this.toQueryString(payload)
 
-      axios.post(("https://api.buzo.dog/api/v1/storage/update" + payload))
+      axios.post(("https://api.buzo.xyz/api/v1/storage/update" + payload))
         .then(response => {
           if(response.data.success) {
             this.reset(1)

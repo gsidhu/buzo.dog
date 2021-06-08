@@ -15,7 +15,7 @@ import metadata_parser
 archive_links = []
 def pull_archive():
     count = 0
-    with open('/Users/thatgurjot/Git Repos/buzo.dog/app/scrapers/margins.html', 'r+') as f:
+    with open('/Users/thatgurjot/Git Repos/buzo.xyz/app/scrapers/margins.html', 'r+') as f:
         r = f.read()
     soup = BeautifulSoup(r, 'html.parser')
     links1 = soup.find_all('a', class_="post-preview-title")

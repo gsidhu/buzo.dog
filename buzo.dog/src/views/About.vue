@@ -1,7 +1,7 @@
 <template>
   <div class='col-md-8 mx-auto my-4' style='text-align: left'>
     <h3>What is this site?</h3>
-    <p>Buzo.dog is a no nonsense library of articles from a selection of publications spanning across culture, technology, science, phiosophy and general wisdom. This website has emerged out of <a href='https://thatgurjot.com/'>my</a> desire to teach myself the fundamentals of web development with Vuejs.</p>
+    <p>buzo.xyz is a no nonsense library of articles from a selection of publications spanning across culture, technology, science, phiosophy and general wisdom. This website has emerged out of <a href='https://thatgurjot.com/'>my</a> desire to teach myself the fundamentals of web development with Vuejs.</p>
 
     <h3>What can I do here?</h3>
     <p>A couple of things. You can 'Fetch' a cool link, or you can go for a 'Walk' and decide which link to follow. Buzo will be with you through it all, in spirit.</p>
@@ -21,7 +21,7 @@
     </ul>
 
     <h3>Terms and Conditions</h3>
-    <p>Buzo.dog is shared under a CC-BY-SA-4.0 license. The creators of this site are not liable for any content that you may access through this site. The creators claim no ownership over the content aggregated, displayed and accessed through this site. By using this site you are implicitly agreeing to these terms and conditions.
+    <p>buzo.xyz is shared under a CC-BY-SA-4.0 license. The creators of this site are not liable for any content that you may access through this site. The creators claim no ownership over the content aggregated, displayed and accessed through this site. By using this site you are implicitly agreeing to these terms and conditions.
     </p>
 
     <h3>Who am I?</h3>
@@ -37,7 +37,7 @@ export default {
   components: {
   },
   created() {
-    document.getElementsByTagName('title')[0].textContent = "About | buzo.dog" 
+    document.getElementsByTagName('title')[0].textContent = "About | buzo.xyz" 
   }
 }
 </script>

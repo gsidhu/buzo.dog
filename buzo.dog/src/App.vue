@@ -22,6 +22,15 @@ export default {
     Header,
     Navigation,
     Footer
+  },
+  created() {
+    // let googleanalytics = document.createElement('script')
+    // googleanalytics.async = true
+    // googleanalytics.setAttribute('src', 'https://www.googletagmanager.com/gtag/js?id=G-JQCWSQ7304')
+    // document.head.appendChild(googleanalytics)
+    // let analytics = document.createElement('script')
+    // analytics.text = "window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-JQCWSQ7304');"
+    // document.head.appendChild(analytics)
   }
 }
 </script>

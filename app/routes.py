@@ -12,7 +12,7 @@ except:
 
 @app.route('/', methods=['GET'])
 def home():
-    return '''<h1>Buzo.Dog API v1</h1>
+    return '''<h1>buzo.xyz API v1</h1>
 <p>A no nonsense API.</p>'''
 
 @app.errorhandler(404)

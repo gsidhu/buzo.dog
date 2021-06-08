@@ -1,11 +1,11 @@
 # limit_req_zone $binary_remote_addr zone=ip:10m rate=5r/s;
 
 server {
-    server_name api.buzo.dog www.api.buzo.dog;
+    server_name api.buzo.xyz www.api.buzo.xyz;
 
     location / {
         include proxy_params;
-        proxy_pass http://unix:/home/thatgurjot/buzo.dog/buzodog.sock;
+        proxy_pass http://unix:/home/thatgurjot/buzo.xyz/buzodog.sock;
         set $cors '';
         if ($http_origin ~ '^https?://(localhost|www\.buzo\.dog|buzo\.dog|127\.0\.0\.1?:8080)') {
                 set $cors 'true';
@@ -33,8 +33,8 @@ server {
     limit_req_status 444;
 
     listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/buzo.dog/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/buzo.dog/privkey.pem; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/buzo.xyz/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/buzo.xyz/privkey.pem; # managed by Certbot
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
@@ -42,13 +42,13 @@ server {
 }
 
 server {
-    if ($host = api.buzo.dog) {
+    if ($host = api.buzo.xyz) {
         return 301 https://$host$request_uri;
     } # managed by Certbot
 
 
     listen 80;
-    server_name api.buzo.dog www.api.buzo.dog;
+    server_name api.buzo.xyz www.api.buzo.xyz;
     return 404; # managed by Certbot
 
 

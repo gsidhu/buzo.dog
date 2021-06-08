@@ -595,7 +595,7 @@ def clean_table(table):
     table.attrs = {}
     return table
 
-# headers = {'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:77.0) Gecko/20100101 Firefox/77.0", 'From': 'buzo@buzo.dog'}
+# headers = {'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:77.0) Gecko/20100101 Firefox/77.0", 'From': 'buzo@buzo.xyz'}
 # url = 'http://www.india-seminar.com/2001/508/508%20surinder%20s.%20jodhka.htm'
 # r = requests.get(url, headers=headers)
 # t = scrape(r.content,'html5lib',url)

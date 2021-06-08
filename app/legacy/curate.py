@@ -110,7 +110,7 @@ def curate(link, scratch=1):
         try:
             new_values['image'] = soup.find_all('img')[0].get('src')
         except:
-            new_values['image'] = 'https://buzo.dog/img/buzo.976a216d.png'
+            new_values['image'] = 'https://buzo.xyz/img/buzo.976a216d.png'
 
     ## Fetch metadata from Bing
     ## if title or description is missing

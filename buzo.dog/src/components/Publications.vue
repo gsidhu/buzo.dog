@@ -62,9 +62,9 @@ export default {
         // fetch new links
         var api_link = '';
         if (source === 'All') {
-            api_link = 'https://api.buzo.dog/api/v1/resources/links?count=15';
+            api_link = 'https://api.buzo.xyz/api/v1/resources/links?count=15';
         } else {
-            api_link = 'https://api.buzo.dog/api/v1/resources/links?count=15' + '&source=' + encodeURI(source);
+            api_link = 'https://api.buzo.xyz/api/v1/resources/links?count=15' + '&source=' + encodeURI(source);
         }
         
         // push them to the variable

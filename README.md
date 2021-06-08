@@ -1,9 +1,9 @@
-# buzo.dog
+# buzo.xyz
 A no nonsense internet explorer.
 
 ## About
 ### What is this site?
-Buzo.dog is a no nonsense internet explorer. The internet has all sorts of beautiful weirdness to it. Buzo helps you explore it.
+buzo.xyz is a no nonsense internet explorer. The internet has all sorts of beautiful weirdness to it. Buzo helps you explore it.
 
 ### What can I do here?
 A couple of things. You can 'Fetch' a cool link, or you can go for a 'Walk' and decide which link to follow. Buzo will be with you through it all, in spirit.
@@ -18,19 +18,19 @@ A bunch -
 3. User Profiles: Upload your bookmarks, share them across devices, maintain your personal reading lists (read, to-read) - all in a secure and private environment; no login, no data shared with anyone
 
 ### Terms and Conditions
-Buzo.dog is shared under a CC-BY-SA-4.0 license. The creators of this site are not liable for any content that you may access through this site. The creators claim no ownership over the content aggregated, displayed and accessed through this site. By using this site you are implicitly agreeing to these terms and conditions.
+buzo.xyz is shared under a CC-BY-SA-4.0 license. The creators of this site are not liable for any content that you may access through this site. The creators claim no ownership over the content aggregated, displayed and accessed through this site. By using this site you are implicitly agreeing to these terms and conditions.
 
 ## Development
 ### Basic Architecture
 The site exists in two parts -
 1. **A Flask API.** See `./app/`.
-2. **A VueJS front-end.** See `./buzo.dog/`.
+2. **A VueJS front-end.** See `./buzo.xyz/`.
 
 ### Configuring local environment
 To configure virtual environment on your machine –
 
 1. Install Python 3 from [Python.org](https://www.python.org/downloads/). Comes pre-installed if you're using a modern UNIX-based OS.
-2. [Download this repository](https://github.com/gsidhu/buzo.dog/archive/master.zip).
+2. [Download this repository](https://github.com/gsidhu/buzo.xyz/archive/master.zip).
 3. Open a Terminal window and point it to the root of this directory.
 4. To create a virtual environment called `venv`, run –
 ```

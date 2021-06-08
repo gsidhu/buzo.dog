@@ -2,15 +2,15 @@
 Start a Gunicorn instance
 
 [Unit]
-Description=Gunicorn instance to serve Buzo.Dog FastAPI
+Description=Gunicorn instance to serve buzo.xyz FastAPI
 After=network.target
 
 [Service]
 User=thatgurjot
 Group=www-data
-WorkingDirectory=/home/thatgurjot/buzo.dog/api
-Environment="PATH=/home/thatgurjot/buzo.dog/api/venv/bin"
-ExecStart=/home/thatgurjot/buzo.dog/api/venv/bin/gunicorn -b 0.0.0.0:6900 -w 4 -k uvicorn.workers.UvicornWorker main:app
+WorkingDirectory=/home/thatgurjot/buzo.xyz/api
+Environment="PATH=/home/thatgurjot/buzo.xyz/api/venv/bin"
+ExecStart=/home/thatgurjot/buzo.xyz/api/venv/bin/gunicorn -b 0.0.0.0:6900 -w 4 -k uvicorn.workers.UvicornWorker main:app
 
 [Install]
 WantedBy=multi-user.target

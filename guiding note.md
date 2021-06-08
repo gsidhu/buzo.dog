@@ -82,7 +82,7 @@ db structure
 
 headers = {
             'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:77.0) Gecko/20100101 Firefox/77.0",
-            'From': 'buzo@buzo.dog'
+            'From': 'buzo@buzo.xyz'
         }
 url = 'https://www.brainpickings.org/2013/03/04/amanda-palmer-on-the-art-of-asking-ted/'
 r = requests.get(url, headers=headers)

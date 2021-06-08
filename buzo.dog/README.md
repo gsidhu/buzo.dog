@@ -1,4 +1,4 @@
-# buzo.dog
+# buzo.xyz
 
 ## Project setup
 ```

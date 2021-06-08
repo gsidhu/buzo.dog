@@ -15,7 +15,7 @@
 archive_links = []
 def pull_archive():
     count = 0
-    with open('/Users/thatgurjot/Git Repos/buzo.dog/app/scrapers/margins.html', 'r+') as f:
+    with open('/Users/thatgurjot/Git Repos/buzo.xyz/app/scrapers/margins.html', 'r+') as f:
         r = f.read()
     soup = BeautifulSoup(r, 'html.parser')
     links = soup.find_all('a', class_="post-preview-description")

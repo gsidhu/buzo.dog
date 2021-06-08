@@ -19,7 +19,7 @@ except:
 
 def get_article():
     count = 0
-    headers = {'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:77.0) Gecko/20100101 Firefox/77.0", 'From': 'buzo@buzo.dog'}
+    headers = {'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:77.0) Gecko/20100101 Firefox/77.0", 'From': 'buzo@buzo.xyz'}
     skip = [91, 1185, 1187, 1189, 2627, 2706, 2761, 2917]
     for article in mycol.find():
         count += 1

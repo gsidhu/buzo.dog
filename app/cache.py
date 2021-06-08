@@ -71,7 +71,7 @@ def restore():
 def cache_art(url):
     headers = {
             'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:77.0) Gecko/20100101 Firefox/77.0",
-            'From': 'buzo@buzo.dog'
+            'From': 'buzo@buzo.xyz'
         }
     try:
         r = requests.get(url, headers=headers)

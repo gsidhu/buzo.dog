@@ -34,7 +34,7 @@
 
 <script>
 import axios from 'axios';
-// axios.defaults.headers.common['header1'] = 'buzo.dog'
+// axios.defaults.headers.common['header1'] = 'buzo.xyz'
 
 export default {
     name: "Home",
@@ -47,25 +47,25 @@ export default {
     components: {
     },
 //    beforeCreate() {
-//       axios.get('https://api.buzo.dog/api/v1/resources/links?count=1')
+//       axios.get('https://api.buzo.xyz/api/v1/resources/links?count=1')
 //         .then( response => this.bone = response.data)
 //         .catch( err => console.log(err));
 //   },
   created() {
-      axios.get('https://api.buzo.dog/api/v1/resources/links?count=1')
+      axios.get('https://api.buzo.xyz/api/v1/resources/links?count=1')
         .then( response => {
             this.bone = response.data
             const el = document.getElementById('fetch-link')
             el.href = this.bone[0].link
             el.title = this.bone[0].title
 
-            document.getElementsByTagName('title')[0].textContent = "buzo.dog" 
+            document.getElementsByTagName('title')[0].textContent = "buzo.xyz" 
         })
         .catch( err => console.log(err));
   },
   methods: {
     fetchAgain() {
-      axios.get('https://api.buzo.dog/api/v1/resources/links?count=1')
+      axios.get('https://api.buzo.xyz/api/v1/resources/links?count=1')
         .then( response => this.bone = response.data)
         .catch( err => console.log(err));
     }

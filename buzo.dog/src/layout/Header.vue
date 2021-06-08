@@ -2,7 +2,7 @@
     <header>
         <router-link to="/">
             <img alt="Buzo logo" src="../assets/buzo.png">
-            <h1>Buzo.Dog</h1>
+            <h1>buzo.xyz</h1>
         </router-link>
         <p>{{ msg }}</p>
     </header>

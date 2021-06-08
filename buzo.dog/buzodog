@@ -1,7 +1,7 @@
 server {
-    server_name buzo.dog www.buzo.dog;
+    server_name buzo.xyz www.buzo.xyz;
 
-    root /home/thatgurjot/buzo.dog/dist;
+    root /home/thatgurjot/buzo.xyz/dist;
 
     index index.html index.htm index.nginx-debian.html;
 
@@ -32,8 +32,8 @@ server {
     }
 
     listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/buzo.dog/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/buzo.dog/privkey.pem; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/buzo.xyz/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/buzo.xyz/privkey.pem; # managed by Certbot
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
@@ -41,18 +41,18 @@ server {
 }
 
 server {
-    if ($host = www.buzo.dog) {
+    if ($host = www.buzo.xyz) {
         return 301 https://$host$request_uri;
     } # managed by Certbot
 
 
-    if ($host = buzo.dog) {
+    if ($host = buzo.xyz) {
         return 301 https://$host$request_uri;
     } # managed by Certbot
 
 
     listen 80;
-    server_name buzo.dog www.buzo.dog;
+    server_name buzo.xyz www.buzo.xyz;
     return 404; # managed by Certbot
 
 

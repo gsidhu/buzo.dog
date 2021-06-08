@@ -15,7 +15,7 @@ import re
 
 reddit = praw.Reddit(client_id="1oXk1bgCT1Zf7A",
                     client_secret="3xj4c0XzzbeyzwGGrtCyk8rUqfI",
-                    user_agent="buzo.dog by u/justcantgradschool",
+                    user_agent="buzo.xyz by u/justcantgradschool",
                     username='justcantgradschool',
                     password='drowssap4321')
 

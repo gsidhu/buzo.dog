@@ -1,8 +1,8 @@
 <template>
     <footer class='container'>
         <hr>
-        <h5>Buzo.Dog</h5>
-        <p>CC-BY-SA-4.0 | <a href="https://github.com/gsidhu/buzo.dog" target="_blank">GitHub</a></p>
+        <h5>buzo.xyz</h5>
+        <p>CC-BY-SA-4.0 | <a href="https://github.com/gsidhu/buzo.xyz" target="_blank">GitHub</a></p>
     </footer>
 </template>
 

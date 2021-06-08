@@ -2,6 +2,6 @@
 module.exports = {
   // options...
   devServer: {
-        proxy: 'https://buzo.dog/',
+        proxy: 'https://buzo.xyz/',
     }
 }

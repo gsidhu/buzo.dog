@@ -64,7 +64,7 @@ export default {
     submit() {
       if (document.getElementById('link-delete').checked) {
         const iD = document.getElementById('link-id').textContent
-        axios.delete("https://api.buzo.dog/api/v1/storage/purge?iD=" + iD)
+        axios.delete("https://api.buzo.xyz/api/v1/storage/purge?iD=" + iD)
           .then( response => {
             console.log(response.data)
           })
@@ -82,7 +82,7 @@ export default {
       payload = this.toQueryString(payload)
       console.log(payload)
 
-      axios.post(("https://api.buzo.dog/api/v1/storage/update" + payload))
+      axios.post(("https://api.buzo.xyz/api/v1/storage/update" + payload))
         .then(response => {
           if(response.data.success) {
             console.log("success")
