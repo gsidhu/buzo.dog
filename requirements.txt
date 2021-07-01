@@ -62,7 +62,7 @@ prawcore==1.4.0
 prometheus-client==0.8.0
 prompt-toolkit==3.0.5
 ptyprocess==0.6.0
-pydantic==1.8.1
+pydantic==1.8.2
 Pygments==2.6.1
 pylint==2.5.2
 pymongo==3.10.1
