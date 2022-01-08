@@ -1,0 +1,2 @@
+2. Run the scraper for each item in that table, store the result in the articles table. If successful, flip the bit in the links table.
+3. Run at random. Keep skipping if errors occur. Will be able to see from the links table which ones are done and which ones not.
