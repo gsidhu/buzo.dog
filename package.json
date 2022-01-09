@@ -1,18 +1,21 @@
 {
   "name": "buzodog-scraper",
   "version": "1.0.0",
-  "description": "Playwright and Readability powered article scraper.",
-  "main": "index.js",
+  "type": "module",
+  "description": "Readability powered article scraper.",
+  "exports": "./work.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Gurjot Sidhu",
   "license": "ISC",
   "dependencies": {
     "@mozilla/readability": "^0.4.1",
     "jsdom": "^19.0.0",
     "playwright": "^1.17.1",
-    "sqlite3": "^5.0.2"
+    "sqlite3": "^5.0.2",
+    "website-scraper": "^5.0.0",
+    "website-scraper-existing-directory": "^1.0.0"
   }
 }

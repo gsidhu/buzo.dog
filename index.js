@@ -1,14 +1,13 @@
-const { fetchData } = require('./work');
-const { flipBit } = require('./work');
+import fetchData from './work';
+// import flipBit from './work';
 
 async function main() {
   try {
-    flipBit()
-    await fetchData()
+    // flipBit()
+    fetchData()
   } catch(e) {
     console.log(e);
   }
 }
 
-flipBit()
-// main()
+main()

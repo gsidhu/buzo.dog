@@ -2,9 +2,10 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 
 from typing import Optional
+
 from pydantic import BaseModel
 
-import db_manager
+import crud
 import json 
 
 app = FastAPI()
@@ -28,7 +29,7 @@ app.add_middleware(
 async def root():
     return {
         "name": "buzo.xyz API",
-        "version": "1.1.0",
+        "version": "1.0.0",
         "author": "Gurjot Sidhu",
         "contact": "contact@thatgurjot.com"
     }

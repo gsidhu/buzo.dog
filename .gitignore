@@ -1,3 +1,5 @@
+local
+*.log
 buzo.db
 .vscode/
 __pycache__/
