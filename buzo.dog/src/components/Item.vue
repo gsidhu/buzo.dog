@@ -16,15 +16,15 @@
           </h6>
           <!-- Article description -->
           <p class="card-text">
-            {{link.description}}
+            {{link.excerpt}}
           </p>
         </div>
         <!-- Links -->
         <div class='card-footer'>
           <!-- Link to original -->
-          <a v-bind:href="link.link" rel="nofollow" target="_blank" class="btn btn-primary btn-sm mr-2" role="button">Original</a>
+          <a v-bind:href="link.url" rel="nofollow" target="_blank" class="btn btn-primary btn-sm mr-2" role="button">Original</a>
           <!-- Link to cached copy -->
-          <a v-bind:href="'/#/cache?id=' + link._id" class="btn btn-info btn-sm mr-2" role="button">Cached</a>
+          <a v-bind:href="'/#/cache?link=' + link.url" class="btn btn-info btn-sm mr-2" role="button">Cached</a>
           <!-- Edit -->
           <a v-if="isLoggedIn" class='btn btn-warning btn-sm' role='button' data-toggle="modal" data-target="#edit-modal" v-bind:data-serial="index" @click="callModal(index)">✏️</a>
         </div>
@@ -37,11 +37,11 @@
           <span v-if="link.title != ''">{{ link.title }}</span>
           <span v-else>{{ link.link }}</span>
       </strong>
-      <span v-if="link.source==='Statechery'"> (Stratechery)</span><span v-else> ({{link.source}})</span>
+      <span> ({{link.source}})</span>
       &mdash;
-      <a v-bind:href="link.link" rel="nofollow" target="_blank">Original</a>
+      <a v-bind:href="link.url" rel="nofollow" target="_blank">Original</a>
       |
-      <a v-bind:href="'/#/cache?id=' + link._id">Cached</a>
+      <a v-bind:href="'/#/cache?link=' + link.url">Cached</a>
       <a v-if="isLoggedIn" role='button' data-toggle="modal" data-target="#edit-modal" v-bind:data-serial="index" @click="callModal(index)"> &mdash; ✏️</a>
     </div>
   </div>

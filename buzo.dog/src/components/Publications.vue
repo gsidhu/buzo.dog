@@ -46,7 +46,6 @@ export default {
   },
   beforeMount() {
       this.fetchMore('All', 0)
-
       // code for pulling publications from API
   },
   mounted() {
@@ -54,9 +53,6 @@ export default {
   },
   methods: {
     fetchMore(source, push) {
-        if (source === 'Stratechery') {
-          source = 'Statechery';
-        } 
         this.title = source;
 
         // fetch new links
@@ -76,7 +72,7 @@ export default {
             .catch( err => console.log(err));
         } else {
           axios.get(api_link)
-            .then( response => this.links = response.data)
+            .then( response => { this.links = response.data })
             .catch( err => console.log(err));
         }
     },

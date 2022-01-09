@@ -56,7 +56,7 @@ export default {
         .then( response => {
             this.bone = response.data
             const el = document.getElementById('fetch-link')
-            el.href = this.bone[0].link
+            el.href = this.bone[0].url
             el.title = this.bone[0].title
 
             document.getElementsByTagName('title')[0].textContent = "buzo.xyz" 

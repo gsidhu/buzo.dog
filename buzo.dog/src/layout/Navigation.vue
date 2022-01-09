@@ -22,7 +22,7 @@ export default {
         this.allow = this.allow + 1
         if (this.allow === 5) {
           console.log(this.allow)
-          sessionStorage.setItem('isLoggedIn', true);
+          sessionStorage.setItem('isLoggedIn', status)
         }
       }
     }

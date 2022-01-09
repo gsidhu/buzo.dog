@@ -1,11 +1,11 @@
 <template>
     <div class="sp-floating-icons">
         <ul v-if="reader" class="list-unstyled">
-            <li style=" width: 20%">
+            <!-- <li style=" width: 20%">
                 <button id='toggle-text-view' class='btn btn-primary' @click="$emit('toggle')">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.5 3H3V6.5H4V4H6.5V3Z" fill="currentColor" /><path d="M8.5 4V3H11V4H8.5Z" fill="currentColor" /><path d="M13 4H15.5V3H13V4Z" fill="currentColor" /><path d="M17.5 3V4H20V6.5H21V3H17.5Z" fill="currentColor" /><path d="M21 8.5H20V11H21V8.5Z" fill="currentColor" /><path d="M21 13H20V15.5H21V13Z" fill="currentColor" /><path d="M21 17.5H20V20H17.5V21H21V17.5Z" fill="currentColor" /><path d="M15.5 21V20H13V21H15.5Z" fill="currentColor" /><path d="M11 21V20H8.5V21H11Z" fill="currentColor" /><path d="M6.5 21V20H4V17.5H3V21H6.5Z" fill="currentColor" /><path d="M3 15.5H4V13H3V15.5Z" fill="currentColor" /><path d="M3 11H4V8.5H3V11Z" fill="currentColor" /><path d="M11 9.5H7V7.5H17V9.5H13V16.5H11V9.5Z" fill="currentColor" /></svg>
                 </button>
-            </li>
+            </li> -->
             <li style=" width: 20%">
                 <button id='show-internal-links' class='btn btn-warning' @click="$emit('links')">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.8284 12L16.2426 13.4142L19.071 10.5858C20.6331 9.02365 20.6331 6.49099 19.071 4.9289C17.509 3.3668 14.9763 3.3668 13.4142 4.9289L10.5858 7.75732L12 9.17154L14.8284 6.34311C15.6095 5.56206 16.8758 5.56206 17.6568 6.34311C18.4379 7.12416 18.4379 8.39049 17.6568 9.17154L14.8284 12Z" fill="currentColor" /><path d="M12 14.8285L13.4142 16.2427L10.5858 19.0711C9.02372 20.6332 6.49106 20.6332 4.92896 19.0711C3.36686 17.509 3.36686 14.9764 4.92896 13.4143L7.75739 10.5858L9.1716 12L6.34317 14.8285C5.56212 15.6095 5.56212 16.8758 6.34317 17.6569C7.12422 18.4379 8.39055 18.4379 9.1716 17.6569L12 14.8285Z" fill="currentColor" /><path d="M14.8285 10.5857C15.219 10.1952 15.219 9.56199 14.8285 9.17147C14.4379 8.78094 13.8048 8.78094 13.4142 9.17147L9.1716 13.4141C8.78107 13.8046 8.78107 14.4378 9.1716 14.8283C9.56212 15.2188 10.1953 15.2188 10.5858 14.8283L14.8285 10.5857Z" fill="currentColor" /></svg>

@@ -39,7 +39,7 @@ export default {
   },
   data() {
     return {
-      id: this.$route.query.id,
+      id: this.$route.query.link,
       link: {},
       cachedLinks: [],
       cachedIndices: [],
@@ -49,7 +49,7 @@ export default {
     }
   },
   created() {
-      var api_link = 'https://api.buzo.xyz/api/v1/resources/links?iD=' + this.id;
+      var api_link = 'https://api.buzo.xyz/api/v1/resources/links?link=' + this.id;
       axios.get(api_link)
         .then( response => {
           var payload = response.data
@@ -128,7 +128,7 @@ export default {
     },
     getCachedLinks() {
       var all_href = $('#text a');
-      var currentHost = (new URL(this.link[0].link)).hostname;
+      var currentHost = (new URL(this.link[0].url)).hostname;
 
       for (var i=0; i < all_href.length; i++) {
         // attach link
@@ -158,9 +158,9 @@ export default {
       Promise.all(this.promises).then(function (results) {
         results.forEach(function (response, i) {
           if (response.data.length > 0) {
-            const tempID = response.data[0]._id;
+            const tempID = response.data[0].url;
             if(tempID.length > 0) {
-              all_href[self.cachedIndices[i]].outerHTML = all_href[self.cachedIndices[i]].outerHTML + " (<a href=/#/cache?id=" + tempID + ">cached</a>)";
+              all_href[self.cachedIndices[i]].outerHTML = all_href[self.cachedIndices[i]].outerHTML + " (<a href=/#/cache?link=" + tempID + ">cached</a>)";
             }
           }
         });
@@ -175,14 +175,14 @@ export default {
       document.getElementById('link-author').value = this.link[0].author
     },
     favit() {
-      const iD = this.link[0]._id
+      const iD = this.link[0].url
       if (this.isFaved) {
         var likes = 0
       } else { likes = 1 }
 
-      axios.post(("https://api.buzo.xyz/api/v1/storage/update?iD=" + iD + "&likes=" + likes))
+      axios.post(("https://api.buzo.xyz/api/v1/storage/update?link=" + iD + "&likes=" + likes))
         .then(response => {
-        if(response.data.success) {
+        if(response.data.response) {
             console.log("success")
             this.isFaved = !this.isFaved
         } else {

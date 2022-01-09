@@ -5,14 +5,13 @@ from typing import Optional
 from pydantic import BaseModel
 
 import db_manager
-import json 
 
 app = FastAPI()
 
 origins = [
     "http://127.0.0.1:8080",
     "http://localhost:8080",
-    "http://192.168.1.60:8080",
+    "http://192.168.1.41:8080",
     "https://buzo.xyz"
 ]
 
@@ -35,70 +34,31 @@ async def root():
 
 # Pull info
 @app.get("/api/v1/resources/links")
-async def main(count: Optional[int] = None, source: Optional[str] = None,
-             iD: Optional[str] = None, link: Optional[str] = None):
-    if source is None:
-        if iD is None:
-            if link is None:
-                result = crud.read(count=count)
-            else:
-                result = crud.read(link=link)
-        else:
-            result = crud.read(id=iD)
-    else:
-        result = crud.read(count=count, source=source)
+async def main(count: Optional[int] = 1, source: Optional[str] = None,
+             link: Optional[str] = None):
+    result = db_manager.read(count=count, source=source, link=link)
     return result
 
-# Fetch link details
+# Add item to DB
 @app.get("/api/v1/storage/add")
 async def store(link: str):
-    response = crud.fetch(link)
+    response = db_manager.read(link=link,short=1)
     # if it's a new link, add it to db
-    if 'exists' not in response.keys():
-        location = crud.add(response)
-        response['_id'] = location
-    
-    del response['text']
-    del response['html']
-    del response['image']
-    del response['pubdate']
+    if response == []:
+        response = db_manager.add(link)
+    else:
+        response = response[0]
+        response['exists'] = True
     return response
-
-## should insert in db on fetch; submit should only make updates if any changes.
-
-# Push info
-@app.post("/api/v1/storage/update")
-async def update(iD: str, title: Optional[str] = None, source: Optional[str] = None,
-                description: Optional[str] = None, tags: Optional[str] = None,
-                language: Optional[str] = None, author: Optional[str] = None,
-                likes: Optional[str] = None):
-                queries = {
-                    '_id': iD,
-                    'title': title,
-                    'source': source,
-                    'description': description,
-                    'tags': tags,
-                    'language': language,
-                    'author': author,
-                    'likes': likes
-                }
-                collection = {}
-                for k in queries.keys():
-                    if queries[k] != None:
-                        if k == 'likes':
-                            collection[k] = int(queries[k])
-                        else:
-                            collection[k] = queries[k]
-
-                response = crud.update(collection)
-                
-                if response:
-                    return {"success": 1}
-                else:
-                    return {"success": 0}
 
 # Delete item from DB
 @app.delete("/api/v1/storage/purge")
-async def delete(iD: str):
-    response = crud.delete(iD)
-    return {"deleted": response}
+async def delete(link: str):
+    response = db_manager.delete(link)
+    return {"deleted": response['response']}
+
+# Update item in DB
+@app.post("/api/v1/storage/update")
+async def update(link: str, likes: int):
+    response = db_manager.update(link, likes)
+    return response

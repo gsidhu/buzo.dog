@@ -87,7 +87,7 @@ export default {
           if (response.data.exists) {
             this.msg = 'Article already exists in library.'
             this.submitted = true
-            document.getElementById('fetch-form').classList.add('d-none')
+            // document.getElementById('fetch-form').classList.add('d-none')
           } else {
             this.fetched = true
             this.submitted = false

@@ -31,6 +31,12 @@ export default {
     // let analytics = document.createElement('script')
     // analytics.text = "window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-JQCWSQ7304');"
     // document.head.appendChild(analytics)
+
+    let goatcounter = document.createElement('script')
+    goatcounter.async = true
+    goatcounter.setAttribute('src', '//gc.zgo.at/count.js')
+    goatcounter.setAttribute('data-goatcounter', 'https://buzo.goatcounter.com/count')
+    document.head.appendChild(goatcounter)
   }
 }
 </script>

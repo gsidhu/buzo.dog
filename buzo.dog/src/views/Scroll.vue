@@ -17,19 +17,16 @@ export default {
   data() {
     return {
       cats: [{"title": 'All'},
-      {"title": 'Recent'},
-      {"title": 'Favourite'}],
-      pubs: [{"title": 'Brain Pickings'},
+      // {"title": 'Recent'},
+      {"title": 'Favourites'}],
+      pubs: [{"title": 'The Marginalian'},
       {"title": 'Aeon'},
-      // {"title": 'Pinboard'},
-      // {"id": 5, "title": 'xkcd'},
-      // {"id": 6, "title": "Three Word Phrase"},
       {"title": "Margins"},
       {"title": "Stratechery"},
       {"title": "Mark Manson"},
       {"title": "fs blog"},
-      {"title": "Alex Danco's Newsletter"},
-      {"title": "Drew Devault's Blog"},
+      {"title": "Alex Danco"},
+      {"title": "Drew Devault"},
       {"title": "Seminar"}]
     }
   },
