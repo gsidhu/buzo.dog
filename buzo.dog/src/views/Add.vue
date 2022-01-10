@@ -9,7 +9,7 @@
       <button class="btn btn-lg btn-primary btn-block mb-5" @click="fetch()">Fetch!</button>
     </form>
 
-    <section id="result" class='col-10 col-lg-8 col-xl-6 mx-auto d-none'>
+    <section id="result-edit" class='col-10 col-lg-8 col-xl-6 mx-auto d-none'>
         <div>
             <h5><strong>Submitted URL: </strong><a id='submitted-link' href="/" rel="nofollow" target="_blank"></a></h5>
             <a id='cached-link' href="" target="_blank">Read cached copy here.</a>
@@ -50,6 +50,9 @@
             <button class="btn btn-lg btn-warning mb-5" @click="reset()">Cancel</button>
         </div>
     </section>
+    <div id='result' class='col-10 col-lg-8 col-xl-6 mx-auto d-none'>
+      <h5>Link added. Thanks.</h5>
+    </div>
     <section class='col-md-6 col-lg-4 mx-auto mb-5'>
       <Item v-if="submitted" v-bind:link="bone" v-bind:index="0" type='card' />
     </section>
@@ -81,13 +84,13 @@ export default {
     fetch() {
       this.link = document.getElementById('inputLink').value
       this.link = this.link.split(/[?#]/)[0] // remove query string
-      axios.get(("https://api.buzo.xyz/api/v1/storage/add?link=" + encodeURI(this.link)))
+      axios.post(("https://api.buzo.xyz/api/v1/storage/add?link=" + encodeURI(this.link)))
         .then ( response => { 
           this.bone = response.data
           if (response.data.exists) {
             this.msg = 'Article already exists in library.'
             this.submitted = true
-            // document.getElementById('fetch-form').classList.add('d-none')
+            document.getElementById('fetch-form').classList.add('d-none')
           } else {
             this.fetched = true
             this.submitted = false

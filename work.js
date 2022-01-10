@@ -16,7 +16,7 @@ const scrapeOptions = {
 function fetchData() {
   // fetch URL from DB
   var db = new sqlite3.Database("./buzo.db");
-  db.all(`SELECT * FROM links WHERE Scraped = 0 ORDER BY RANDOM() LIMIT 30;`, async function(err, rows) {
+  db.all(`SELECT * FROM links WHERE Scraped = 0 ORDER BY RANDOM() LIMIT 1000;`, async function(err, rows) {
     try {
       for (var i=0; i < rows.length; i++) {
         let row = rows[i]

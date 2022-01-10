@@ -1,5 +1,5 @@
-var sqlite3 = require('sqlite3');
-const fs = require('fs');
+import sqlite3 from 'sqlite3';
+import fs from 'fs';
 
 function addLinksToDB() {
     // load links JSON
@@ -23,8 +23,8 @@ function addLinksToDB() {
                           return console.log(err.message);
                         }
                         if (rows.length === 0) {
-                            let array = [l, pub, 0]
-                            db.run(`INSERT INTO links(URL, Publication, Scraped) VALUES(?,?,?)`, array, function(err) {
+                            let array = [l, pub, 0, 0]
+                            db.run(`INSERT INTO links(URL, Publication, Scraped) VALUES(?,?,?,?)`, array, function(err) {
                                 if (err) {
                                     return console.log(err.message);
                                 }
@@ -32,7 +32,7 @@ function addLinksToDB() {
                                 console.log(`A row has been inserted with rowid ${this.lastID}`);
                             });
                         } else {
-                            console.log("Link already exists in DB")
+                            // console.log("Link already exists in DB")
                         }
                     });
                 }

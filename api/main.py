@@ -40,7 +40,7 @@ async def main(count: Optional[int] = 1, source: Optional[str] = None,
     return result
 
 # Add item to DB
-@app.get("/api/v1/storage/add")
+@app.post("/api/v1/storage/add")
 async def store(link: str):
     response = db_manager.read(link=link,short=1)
     # if it's a new link, add it to db

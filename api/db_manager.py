@@ -46,9 +46,15 @@ def add(link):
     link = str(link)
     con = sqlite3.connect('../buzo.db')
     cur = con.cursor()
-    cur.execute("INSERT INTO links VALUES (?,?,?,?)", (link,'',0,0))
-    con.commit()
-    con.close()
+    # Check if the link exists in the Links table
+    query = "SELECT * FROM links WHERE url='" + link + "'"
+    response = []
+    for row in cur.execute(query):
+        response = row
+    if response == []:
+        cur.execute("INSERT INTO links VALUES (?,?,?,?)", (link,'Other',0,0))
+        con.commit()
+        con.close()
     return {'response':True}
 
 def delete(link):
