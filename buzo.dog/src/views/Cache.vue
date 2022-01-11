@@ -57,9 +57,9 @@ export default {
           this.isFaved = payload[0].likes
 
           // add meta and text
-          document.getElementById('meta-title-link').href = payload[0].link
+          document.getElementById('meta-title-link').href = payload[0].url
           document.getElementById('meta-title-link').textContent = payload[0].title
-          document.getElementById('meta-description').textContent = payload[0].description
+          // document.getElementById('meta-description').textContent = payload[0].excerpt
           document.getElementById('meta-source').textContent = '— '.concat(payload[0].source)
           if (payload[0].tags) {document.getElementById('meta-tags').textContent = 'Tags: '.concat(payload[0].tags)}
           if (payload[0].pubdate) {document.getElementById('meta-pubdate').textContent = 'Published on: '.concat(payload[0].pubdate)}

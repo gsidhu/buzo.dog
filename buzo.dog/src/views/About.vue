@@ -1,7 +1,7 @@
 <template>
   <div class='col-md-8 mx-auto my-4' style='text-align: left'>
     <h3>What is this site?</h3>
-    <p>buzo.xyz is a no nonsense library of articles from a selection of publications spanning across culture, technology, science, phiosophy and general wisdom. This website has emerged out of <a href='https://thatgurjot.com/'>my</a> desire to teach myself the fundamentals of web development with Vuejs.</p>
+    <p>buzo.xyz is a personal archive. It is a library of articles from a selection of publications spanning across culture, technology, science, philosophy and general wisdom. This website has emerged out of <a href='https://thatgurjot.com/'>my</a> desire to teach myself the fundamentals of web development with Vuejs. And now Node JS and SQL as well.</p>
 
     <h3>What can I do here?</h3>
     <p>A couple of things. You can 'Fetch' a cool link, or you can go for a 'Walk' and decide which link to follow. Buzo will be with you through it all, in spirit.</p>

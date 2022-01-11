@@ -2,7 +2,7 @@
     <footer class='container'>
         <hr>
         <h5>buzo.xyz</h5>
-        <p>CC-BY-SA-4.0 | <a href="https://github.com/gsidhu/buzo.xyz" target="_blank">GitHub</a></p>
+        <p>CC-BY-SA-4.0 | <a href="https://github.com/gsidhu/buzo.dog" target="_blank">GitHub</a></p>
     </footer>
 </template>
 

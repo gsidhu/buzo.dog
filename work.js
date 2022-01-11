@@ -19,23 +19,29 @@ function fetchData() {
   db.all(`SELECT * FROM links WHERE Scraped = 0 ORDER BY RANDOM() LIMIT 1000;`, async function(err, rows) {
     try {
       for (var i=0; i < rows.length; i++) {
+        if (i%10 === 0) {
+          setTimeout(() => {
+            let q = i + " done. Taking a break."
+            console.log(q);
+          }, 2000);
+        }
         let row = rows[i]
         // check if link already exists in articles table
         if (checkExist(row['URL'])) {
           continue
         }
         // download page source
-        try {
-          scrapeOptions['urls'] = [row['URL']]
-          await scrape(scrapeOptions);
-          let source = getSource();
-          let response = readSource(source, row.URL, row.Publication)
-          if (response) {
-            addArticleToDB(response)
-          } else {
-            continue
-          }
-        } catch(err) {
+        // try {
+        //   scrapeOptions['urls'] = [row['URL']]
+        //   await scrape(scrapeOptions);
+        //   let source = getSource();
+        //   let response = readSource(source, row.URL, row.Publication)
+        //   if (response) {
+        //     addArticleToDB(response)
+        //   } else {
+        //     continue
+        //   }
+        // } catch(err) {
           // console.log(err.message)
           // console.log(row['URL'])
           // console.log("Switching to headless")
@@ -52,7 +58,7 @@ function fetchData() {
           } finally {
             // browser && await browser.close();
           }
-        }
+        // }
       }
     } catch (err) {
       return console.log(err.message);
@@ -145,6 +151,7 @@ function checkExist(URL) {
 function addArticleToDB(array) {
   // don't add if the array is not proper
   if (array[2] === '' | array[6] < 200) {
+    console.log("Bad fetch. Skipping.");
     return
   }
 

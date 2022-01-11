@@ -19,15 +19,19 @@ export default {
       cats: [{"title": 'All'},
       // {"title": 'Recent'},
       {"title": 'Favourites'}],
-      pubs: [{"title": 'The Marginalian'},
-      {"title": 'Aeon'},
-      {"title": "Margins"},
-      {"title": "Stratechery"},
-      {"title": "Mark Manson"},
-      {"title": "fs blog"},
-      {"title": "Alex Danco"},
-      {"title": "Drew Devault"},
-      {"title": "Seminar"}]
+      pubs: [
+        {"title": 'Aeon'},
+        {"title": "fs blog"},
+        {"title": "Alex Danco"},
+        {"title": "Drew Devault"},
+        {"title": "Margins"},
+        {"title": "Ava"},
+        {"title": "Seminar"},
+        {"title": "Stratechery"},
+        {"title": "Mark Manson"},
+        {"title": 'The Marginalian'},
+        {"title": "Other"},
+      ]
     }
   },
   created() {
