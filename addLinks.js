@@ -24,7 +24,7 @@ function addLinksToDB() {
                         }
                         if (rows.length === 0) {
                             let array = [l, pub, 0, 0]
-                            db.run(`INSERT INTO links(URL, Publication, Scraped) VALUES(?,?,?,?)`, array, function(err) {
+                            db.run(`INSERT INTO links(URL, Publication, Scraped, Likes) VALUES(?,?,?,?)`, array, function(err) {
                                 if (err) {
                                     return console.log(err.message);
                                 }

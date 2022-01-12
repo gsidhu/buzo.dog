@@ -1,4 +1,8 @@
+from pprint import pprint as pp
 import sqlite3
+import random
+
+publications = ['Aeon','Psyche','Fifty Two','Palladium',"fs blog","Alex Danco","Drew Devault","Margins","Ava","Seminar","Stratechery","Mark Manson",'The Marginalian',"Other"]
 
 def read(count=1, source=None, link=None, short=None):
     con = sqlite3.connect('../buzo.db')
@@ -6,15 +10,20 @@ def read(count=1, source=None, link=None, short=None):
     if link:
         # if link is defined (regardless of source)
         query = "SELECT * FROM articles WHERE url='" + link + "'"
+        if short:
+            query = "SELECT url,title,publication,excerpt,author,length FROM articles WHERE url='" + link + "'"
     else:
         # if both link and source are not defined
-        query = "SELECT * FROM articles ORDER BY RANDOM() LIMIT " + str(count)
+        # select a link at random but equal bias to all publications
+        pub = random.sample(publications, k=1)[0]
+        query = "SELECT DISTINCT url,title,publication,excerpt,author,length FROM articles WHERE publication = '%s' ORDER BY RANDOM() LIMIT %s" % (pub,str(count))
         # if source is defined
         if source:
-            query = "SELECT * FROM articles WHERE publication='" + source + "' ORDER BY RANDOM() LIMIT " + str(count)
+            query = "SELECT url,title,publication,excerpt,author,length FROM articles WHERE publication='" + source + "' ORDER BY RANDOM() LIMIT " + str(count)
             if source == 'Favourites':
-                query = "SELECT * FROM articles INNER JOIN links on articles.url = links.url WHERE links.Likes = 1"
+                query = "SELECT articles.url,title,articles.publication,excerpt,author,length FROM articles INNER JOIN links on articles.url = links.url WHERE links.Likes = 1"
     response = []
+
     for row in cur.execute(query):
         if link and not short:
             data = {
@@ -29,12 +38,12 @@ def read(count=1, source=None, link=None, short=None):
             }
         else:
             data = {
-                'url': row[1],
-                'title': row[2],
-                'source': row[0],
-                'excerpt': row[7],
-                'author': row[3],
-                'length': row[6],
+                'url': row[0],
+                'title': row[1],
+                'source': row[2],
+                'excerpt': row[3],
+                'author': row[4],
+                'length': row[5],
             }
         response.append(data)
     

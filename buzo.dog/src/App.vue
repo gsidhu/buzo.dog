@@ -23,6 +23,23 @@ export default {
     Navigation,
     Footer
   },
+  metaInfo: {
+    title: 'buzo.xyz',
+    titleTemplate: '%s | buzo.xyz',
+    htmlAttrs: {
+      lang: 'en-UK'
+    },
+    meta: [
+      { charset: 'utf-8' },
+      { name: 'description', content: 'A personal archive.' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'og:url', content: 'https://buzo.xyz' },
+      { name: 'og:type', content: 'website' },
+      { name: 'og:title', content: 'buzo.xyz' },
+      { name: 'og:description', content: 'A personal archive.' },
+      { name: 'twitter:description', content: 'A personal archive.' }
+    ]
+  },
   created() {
     // let googleanalytics = document.createElement('script')
     // googleanalytics.async = true
@@ -37,6 +54,13 @@ export default {
     goatcounter.setAttribute('src', '//gc.zgo.at/count.js')
     goatcounter.setAttribute('data-goatcounter', 'https://buzo.goatcounter.com/count')
     document.head.appendChild(goatcounter)
+
+       
+    // <meta property="og:description" content="I work with data in the social sector quite often. In this article, I am going to share a framework that I use myself to plan data-related projects.">
+    // <meta name="twitter:description" content="I work with data in the social sector quite often. In this article, I am going to share a framework that I use myself to plan data-related projects.">
+    // <meta property="og:url" content="https://thatgurjot.com">
+    // <meta property="og:type" content="website">
+    // <meta property="og:title" content="Framework for a Robust Data Pipeline | That Gurjot">
   }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div class='mx-auto my-4'>
+    <div class='mx-auto my-4 px-lg-5'>
       <toolbar :reader=0 @toggle="card = !card"></toolbar>
         <div class="row mx-auto justify-content-center">
             <div v-bind:key="index" v-for="(cat, index) in cats" class="links-div mb-2 mx-1 shadow-sm">
@@ -19,6 +19,14 @@
         </div>
 
         <Links v-bind:links="links" :title="title" :card="card"/>
+
+        <div>
+            <button id='load-more-spinner' class="btn d-none">
+              <div class="spinner-border" role="status">
+                <span class="visually-hidden"></span>
+              </div>
+            </button>
+        </div>
     </div>
 </template>
 
@@ -53,6 +61,7 @@ export default {
   },
   methods: {
     fetchMore(source, push) {
+        if (push) { document.getElementById('load-more-spinner').classList.remove('d-none') }
         this.title = source;
 
         // fetch new links
@@ -68,11 +77,14 @@ export default {
           axios.get(api_link)
             .then( response => {
               this.links.push.apply(this.links, response.data);
+              document.getElementById('load-more-spinner').classList.add('d-none')
             })
             .catch( err => console.log(err));
         } else {
           axios.get(api_link)
-            .then( response => { this.links = response.data })
+            .then( response => {
+              this.links = response.data 
+            })
             .catch( err => console.log(err));
         }
     },

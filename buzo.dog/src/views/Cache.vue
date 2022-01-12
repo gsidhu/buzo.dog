@@ -1,6 +1,5 @@
 <template>
   <article onscroll="blurToolbar()">
-    <Toolbar :reader="1" :isFaved="isFaved" @modal="populateModal" @links="getCachedLinks" @toggle="html = !html" @fav="favit"/>
 
     <section id='meta'>
       <div id='meta-box' class='col-md-6 mx-auto my-4'>
@@ -12,8 +11,10 @@
       </div>
     </section>
 
+    <Toolbar :reader="1" :isFaved="isFaved" @modal="populateModal" @links="getCachedLinks" @toggle="html = !html" @fav="favit"/>
+
     <section id='text' class='py-4'>
-      <div class='col-10 col-md-8 col-xl-6 mx-auto my-4'>
+      <div class='col-10 col-md-8 col-xl-6 mx-auto my-4 px-1'>
         <div v-if='html' class='raw' id='raw-html'></div>
         <div v-else class='raw' id='raw-text'>{{ link[0].text }} </div>
       </div>
@@ -32,6 +33,9 @@ import $ from 'jquery';
 
 export default {
   name: 'Cache',
+  metaInfo: {
+    title: 'buzobuzo'
+  },
   // props: ["links"],
   components: {
     Edit,

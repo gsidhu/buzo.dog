@@ -1,6 +1,6 @@
 import fs from 'fs';
 import playwright from 'playwright';
-let browser = await playwright.chromium.launch({ headless: true });
+let browser = await playwright.chromium.launch({ headless: false });
 const page = await browser.newPage();
 
 let result = ""
@@ -18,17 +18,38 @@ let result = ""
 //     console.log(url)
 // }
 
+// let url = ''
+// for (var i=1; i < 15; i++) {
+//     url = 'https://palladiummag.com/page/' + i
+//     await pullLinks(url)
+//     console.log(url)
+// }
+
+let url = 'https://psyche.co/poiesis'
+await page.goto(url)
+await page.waitForLoadState();
+let moreButton = '.byRteF'
+for (var i=0; i < 15; i++) {
+    console.log(i);
+    await page.click(moreButton)
+    await page.waitForTimeout(500)
+}
+
+const links = await page.$$('.fImuEk');
+console.log(links.length);
+for (const obj of links) {
+    result = result + await obj.evaluate(element => element.href) + ",\n"
+}
+
 async function pullLinks(url) {
     await page.goto(url)
     await page.waitForLoadState();
 
-    const links = await page.$$('a');
+    const links = await page.$$('.entry-permalink');
     for (const obj of links) {
         result = result + await obj.evaluate(element => element.href) + ",\n"
     }
 }
-
-await pullLinks(url)
 
 fs.writeFile('new.txt', result, function (err) {
     if (err) return console.log(err);

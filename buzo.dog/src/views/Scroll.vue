@@ -21,6 +21,9 @@ export default {
       {"title": 'Favourites'}],
       pubs: [
         {"title": 'Aeon'},
+        {"title": 'Psyche'},
+        {"title": 'Fifty Two'},
+        {"title": 'Palladium'},
         {"title": "fs blog"},
         {"title": "Alex Danco"},
         {"title": "Drew Devault"},
