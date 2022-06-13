@@ -16,7 +16,7 @@ def read(count=1, source=None, link=None, short=None):
         # if both link and source are not defined
         # select a link at random but equal bias to all publications
         pub = random.sample(publications, k=1)[0]
-        query = "SELECT DISTINCT url,title,publication,excerpt,author,length FROM articles WHERE publication = '%s' ORDER BY RANDOM() LIMIT %s" % (pub,str(count))
+        query = "SELECT DISTINCT url,title,publication,excerpt,author,length FROM articles ORDER BY RANDOM() LIMIT %s" % (str(count))
         # if source is defined
         if source:
             query = "SELECT url,title,publication,excerpt,author,length FROM articles WHERE publication='" + source + "' ORDER BY RANDOM() LIMIT " + str(count)
@@ -49,6 +49,7 @@ def read(count=1, source=None, link=None, short=None):
     
     con.commit()
     con.close()
+    pp(response)
     return response
 
 def add(link):
